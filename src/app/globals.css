@@ -1,26 +1,65 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #282828;
+  --foreground: #ebdbb2;
+  --gruv-bg: #282828;
+  --gruv-bg-soft: #3c3836;
+  --gruv-fg: #ebdbb2;
+  --gruv-red: #fb4934;
+  --gruv-green: #b8bb26;
+  --gruv-yellow: #fabd2f;
+  --gruv-blue: #83a598;
+  --gruv-purple: #d3869b;
+  --gruv-aqua: #8ec07c;
+  --gruv-orange: #fe8019;
+  --gruv-gray: #a89984;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-gruv-bg: var(--gruv-bg);
+  --color-gruv-bg-soft: var(--gruv-bg-soft);
+  --color-gruv-fg: var(--gruv-fg);
+  --color-gruv-red: var(--gruv-red);
+  --color-gruv-green: var(--gruv-green);
+  --color-gruv-yellow: var(--gruv-yellow);
+  --color-gruv-blue: var(--gruv-blue);
+  --color-gruv-purple: var(--gruv-purple);
+  --color-gruv-aqua: var(--gruv-aqua);
+  --color-gruv-orange: var(--gruv-orange);
+  --color-gruv-gray: var(--gruv-gray);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-mono); /* Emphasize code aspect */
+  overflow-x: hidden;
+  margin: 0;
+}
+
+/* Base custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--gruv-bg); 
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gruv-bg-soft); 
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gruv-gray); 
+}
+
+/* Prevent text selection in interactive nodes */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
