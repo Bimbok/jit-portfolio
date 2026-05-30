@@ -522,7 +522,7 @@ export function Terminal({
             />
           </div>
           <div className="flex-1 text-center overflow-hidden px-2">
-            <div className="overflow-x-auto no-visible-scrollbar whitespace-nowrap text-[10px] md:text-xs text-neutral-400">
+            <div className="overflow-x-auto whitespace-nowrap text-[10px] md:text-xs text-neutral-400">
               {username} — bash
             </div>
           </div>
@@ -534,7 +534,7 @@ export function Terminal({
       <div
         ref={contentRef}
         className={cn(
-          "no-visible-scrollbar overflow-y-auto p-4 font-mono relative grow",
+          "overflow-y-auto p-4 font-mono relative grow",
           !isMaximized && (showTitleBar ? "h-80" : "h-40")
         )}
       >

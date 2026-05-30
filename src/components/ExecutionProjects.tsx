@@ -67,7 +67,7 @@ export default function ExecutionProjects({ activeProject, onClose }: { activePr
       onClick={onClose}
     >
       <motion.div
-        className="w-full max-w-3xl bg-gruv-bg border-2 border-gruv-yellow rounded-xl p-6 md:p-10 text-gruv-fg shadow-[0_0_50px_rgba(250,189,47,0.2)] relative z-[110] max-h-[90vh] overflow-y-auto custom-scrollbar"
+        className="w-full max-w-3xl bg-gruv-bg border-2 border-gruv-yellow rounded-xl p-6 md:p-10 text-gruv-fg shadow-[0_0_50px_rgba(250,189,47,0.2)] relative z-[110] max-h-[90vh] overflow-y-auto"
         initial={{ opacity: 0, y: 28, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 28, scale: 0.96 }}
