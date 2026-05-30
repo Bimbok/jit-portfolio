@@ -18,16 +18,26 @@ const INITIAL_FS: Record<string, FSNode> = {
     type: "dir",
     name: "/",
     children: {
-      bin: { type: "dir", name: "bin", children: { bash: { type: "file", name: "bash", content: "[Binary Content]" } } },
-      boot: { type: "dir", name: "boot", children: { vmlinuz: { type: "file", name: "vmlinuz", content: "[Kernel Image]" } } },
-      dev: { type: "dir", name: "dev", children: { null: { type: "file", name: "null", content: "" } } },
+      bin: { 
+        type: "dir", 
+        name: "bin", 
+        children: { 
+          bash: { type: "file", name: "bash", content: "[Binary Content]" },
+          ls: { type: "file", name: "ls", content: "[Binary Content]" },
+          pacman: { type: "file", name: "pacman", content: "[Binary Content]" },
+          cowsay: { type: "file", name: "cowsay", content: "[Script Content]" },
+        } 
+      },
+      boot: { type: "dir", name: "boot", children: { vmlinuz: { type: "file", name: "vmlinuz", content: "[Kernel Image]" }, "grub.cfg": { type: "file", name: "grub.cfg", content: "set timeout=5\nmenuentry 'Arch Linux' {\n  linux /boot/vmlinuz root=UUID=... rw\n}" } } },
+      dev: { type: "dir", name: "dev", children: { null: { type: "file", name: "null", content: "" }, random: { type: "file", name: "random", content: "[Entropy Stream]" } } },
       etc: {
         type: "dir",
         name: "etc",
         children: {
           hostname: { type: "file", name: "hostname", content: "bimbok-arch" },
-          pacman: { type: "dir", name: "pacman", children: { "pacman.conf": { type: "file", name: "pacman.conf", content: "HoldPkg = pacman glibc" } } },
+          pacman: { type: "dir", name: "pacman", children: { "pacman.conf": { type: "file", name: "pacman.conf", content: "HoldPkg = pacman glibc\nArchitecture = auto\nColor\nCheckSpace\nVerbosePkgLists\nParallelDownloads = 5" } } },
           os: { type: "file", name: "os", content: "NAME=\"Arch Linux\"\nID=arch\nPRETTY_NAME=\"Arch Linux\"" },
+          "issue": { type: "file", name: "issue", content: "Arch Linux \\r (\\l)\n" },
         },
       },
       home: {
@@ -51,11 +61,12 @@ const INITIAL_FS: Record<string, FSNode> = {
                 },
               },
               "contact.txt": { type: "file", name: "contact.txt", content: "Email: tmsl.it27.bratik@gmail.com\nGitHub: github.com/Bimbok\nLinkedIn: linkedin.com/in/bratik-mukherjee" },
+              ".bashrc": { type: "file", name: ".bashrc", content: "alias ls='ls --color=auto'\nalias htop='top'\nPS1='[\\u@\\h \\W]\\$ '" },
             },
           },
         },
       },
-      usr: { type: "dir", name: "usr", children: { local: { type: "dir", name: "local", children: {} } } },
+      usr: { type: "dir", name: "usr", children: { local: { type: "dir", name: "local", children: {} }, bin: { type: "dir", name: "bin", children: {} } } },
       var: {
         type: "dir",
         name: "var",
@@ -89,9 +100,48 @@ const ARCH_LOGO = [
   " .`                                      ",
 ];
 
+const FORTUNES = [
+  "A day for firm decisions!!!!!  Or is it?",
+  "A dream you have will come true.",
+  "Architecture is the art of how to waste space.",
+  "Arch Linux: because you have too much free time.",
+  "Better to be a compiler than an interpreter.",
+  "Bratik is watching your terminal session. (Not really)",
+  "I'd tell you a joke about UDP, but you might not get it.",
+  "Linux: The choice of a GNU generation.",
+  "Optimization is the root of all evil.",
+];
+
+const cowsay = (text: string) => {
+  const lines = text.match(/.{1,30}(\s|$)/g) || [text];
+  const width = Math.max(...lines.map(l => l.trim().length));
+  const top = " _" + "_".repeat(width) + "_ ";
+  const bottom = " -" + "-".repeat(width) + "- ";
+  const body = lines.map((l, i) => {
+    const content = l.trim();
+    let edge = "|";
+    if (lines.length === 1) edge = "<";
+    else if (i === 0) edge = "/";
+    else if (i === lines.length - 1) edge = "\\";
+    return `${edge} ${content.padEnd(width)} ${edge === "<" ? ">" : edge}`;
+  });
+
+  return [
+    top,
+    ...body,
+    bottom,
+    "        \\   ^__^",
+    "         \\  (oo)\\_______",
+    "            (__)\\       )\\/\\",
+    "                ||----w |",
+    "                ||     ||",
+  ];
+};
+
 export default function TerminalFooter() {
   const [fs, setFs] = useState<Record<string, FSNode>>(INITIAL_FS);
   const [currentPath, setCurrentPath] = useState<string[]>(["home", "visitor"]);
+  const [history, setHistory] = useState<string[]>([]);
 
   const resolvePath = useCallback((path: string, base: string[]): string[] | null => {
     if (path === "~") return ["home", "visitor"];
@@ -141,24 +191,80 @@ export default function TerminalFooter() {
   }, []);
 
   const handleCommand = (cmd: string) => {
-    const parts = cmd.trim().split(/\s+/);
+    const rawCmd = cmd.trim();
+    if (!rawCmd) return "";
+    setHistory(prev => [...prev, rawCmd]);
+
+    const parts = rawCmd.split(/\s+/);
     const command = parts[0].toLowerCase();
     const args = parts.slice(1);
-
-    if (!command) return "";
 
     switch (command) {
       case "help":
         return [
           "Available commands:",
           "  ls, cd, pwd, cat, mkdir, touch, rm, mv, cp, clear, whoami, hostname, uname, neofetch, pacman, echo, exit, sudo, lsblk, df",
+          "  date, cal, cowsay, fortune, history, sl, top, who",
         ];
 
       case "whoami":
         return "visitor";
 
+      case "who":
+        return "visitor  tty1         2026-05-30 09:08 (:0)";
+
       case "hostname":
         return "bimbok-arch";
+
+      case "date":
+        return new Date().toString();
+
+      case "cal": {
+        const d = new Date();
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        return [
+          `    ${months[d.getMonth()]} ${d.getFullYear()}     `,
+          "Su Mo Tu We Th Fr Sa",
+          "                   1",
+          " 2  3  4  5  6  7  8",
+          " 9 10 11 12 13 14 15",
+          "16 17 18 19 20 21 22",
+          "23 24 25 26 27 28 29",
+          "30 31               ",
+        ];
+      }
+
+      case "cowsay":
+        return cowsay(args.join(" ") || "Moo!");
+
+      case "fortune":
+        return FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
+
+      case "history":
+        return history.map((h, i) => `${i + 1}  ${h}`);
+
+      case "sl":
+        return [
+          "      ====        ________                ___________",
+          "  _D [] _________________ [____]  _________  [________]",
+          " {_______________________|  oo  |_|  oooo  |_|  oo  |",
+          " /oo\\oo\\  /oo\\oo\\  /oo\\oo\\  /oo\\oo\\  /oo\\oo\\  /oo\\oo\\",
+        ];
+
+      case "top":
+        return [
+          "top - 21:58:00 up 2 years, 3 months, 1 user, load average: 0.05, 0.12, 0.15",
+          "Tasks: 120 total,   1 running, 119 sleeping,   0 stopped,   0 zombie",
+          "%Cpu(s):  2.3 us,  0.5 sy,  0.0 ni, 97.0 id,  0.2 wa,  0.0 hi,  0.0 si,  0.0 st",
+          "MiB Mem :  64384.0 total,  58201.2 free,   3249.4 used,   2933.4 buff/cache",
+          "MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.  60512.4 avail Mem ",
+          "",
+          "  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND",
+          "  409 visitor   20   0   12.5g   3.2g 124560 S   2.0   5.1   0:42.12 next-dev",
+          "    1 root      20   0  168340  12456   8500 S   0.0   0.0   0:01.45 systemd",
+          "  101 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kworker",
+          "  512 visitor   20   0   18456   4560   3200 R   0.0   0.0   0:00.01 top",
+        ];
 
       case "pwd":
         return "/" + currentPath.join("/");
