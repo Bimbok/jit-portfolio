@@ -521,12 +521,12 @@ export function Terminal({
               }}
             />
           </div>
-          <div className="flex-1 text-center">
-            <span className="truncate text-xs text-neutral-400">
+          <div className="flex-1 text-center overflow-hidden px-2">
+            <div className="overflow-x-auto no-visible-scrollbar whitespace-nowrap text-[10px] md:text-xs text-neutral-400">
               {username} — bash
-            </span>
+            </div>
           </div>
-          <div className="w-[52px]" />
+          <div className="hidden md:block w-[52px]" />
         </div>
       )}
 
