@@ -360,7 +360,7 @@ export default function TerminalFooter() {
       }
 
       case "clear":
-        return { output: "", action: "clear" };
+        return { output: "", action: "clear" as const };
 
       case "uname":
         if (args[0] === "-a") return "Linux bimbok-arch 6.9.3-arch1-1 #1 SMP PREEMPT_DYNAMIC Fri, 31 May 2026 15:30:24 +0000 x86_64 GNU/Linux";
