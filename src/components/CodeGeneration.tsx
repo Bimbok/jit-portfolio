@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { Terminal } from "@/components/ui/terminal";
 
 const codegenTargets = [
   {
@@ -96,14 +97,16 @@ export default function CodeGeneration() {
               </div>
             </div>
 
-            <div className="bg-[#181818] p-5 text-sm text-gruv-aqua">
-              <div>
-                <span className="text-gruv-gray">$</span> {target.command}
-              </div>
-              <div className="mt-3 text-gruv-green">
-                output: {target.output}
-              </div>
-            </div>
+            <Terminal
+              key={target.target}
+              commands={[target.command]}
+              outputs={{ 0: [`output: ${target.output}`] }}
+              username="visitor@compiler"
+              className="max-w-none px-0"
+              showTitleBar={false}
+              typingSpeed={30}
+              initialDelay={100}
+            />
 
             <p className="text-lg leading-relaxed text-gruv-fg">
               {target.detail}

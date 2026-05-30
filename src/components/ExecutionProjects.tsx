@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
+import { Terminal } from "@/components/ui/terminal";
 
 const projectsData = [
   { 
@@ -91,12 +92,21 @@ export default function ExecutionProjects({ activeProject, onClose }: { activePr
           ))}
         </div>
 
-        <div className="bg-gruv-bg-soft p-6 rounded-lg text-sm font-mono text-gruv-aqua border border-gruv-bg-soft">
-          <span className="text-gruv-gray">~/projects/{project.title.toLowerCase()} $</span> ./inspect <br/>
-          &gt; Resolving artifact metadata... [OK]<br/>
-          &gt; Loading dependencies... [OK]<br/>
-          &gt; Portfolio object linked... <span className="text-gruv-green">[SUCCESS]</span>
-        </div>
+        <Terminal
+          commands={["./inspect"]}
+          outputs={{
+            0: [
+              "Resolving artifact metadata... [OK]",
+              "Loading dependencies... [OK]",
+              "Portfolio object linked... [SUCCESS]",
+            ],
+          }}
+          username={`visitor@compiler:~/projects/${project.title.toLowerCase()}`}
+          className="max-w-none px-0"
+          showTitleBar={false}
+          typingSpeed={30}
+          initialDelay={100}
+        />
       </motion.div>
     </motion.div>
   );
