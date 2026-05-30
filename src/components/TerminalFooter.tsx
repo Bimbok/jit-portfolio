@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 
 export default function TerminalFooter() {
   const [input, setInput] = useState("");
-  const [history, setHistory] = useState<string[]>(["Welcome to Compiler OS v1.0", "Type 'help' for available commands."]);
+  const [history, setHistory] = useState<string[]>([
+    "Phase 07: Linking, Loading & Execution",
+    "Type 'help' for available commands.",
+  ]);
 
   const handleCommand = (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,19 +16,22 @@ export default function TerminalFooter() {
 
     switch (cmd) {
       case "help":
-        response = "Available commands: bio, stack, contact, clear, whoami";
+        response = "Available commands: bio, stack, projects, contact, clear, whoami";
         break;
       case "bio":
-        response = "Elite frontend engineer specializing in kinetic UIs and compiler-themed architectures.";
+        response = "Bratik Mukherjee: Full Stack and Android developer building web, CLI, JVM, and native Android systems.";
         break;
       case "stack":
-        response = "Next.js, TypeScript, Framer Motion, GSAP, Tailwind CSS.";
+        response = "React, Next.js, Node.js, PostgreSQL, Kotlin, Go, C/C++, Java, Python, Tailwind, D3.js.";
+        break;
+      case "projects":
+        response = "Linked artifacts: AlgoScope, bDoci, Sizuka, bimagic, fyzenor, Ping, creAItr.";
         break;
       case "contact":
-        response = "hello@compiler-dev.io";
+        response = "Email: tmsl.it27.bratik@gmail.com | GitHub: github.com/Bimbok | LinkedIn: linkedin.com/in/bratik-mukherjee";
         break;
       case "whoami":
-        response = "root@compiler-os";
+        response = "visitor@bimbok-compiler";
         break;
       case "clear":
         setHistory([]);
@@ -45,7 +50,7 @@ export default function TerminalFooter() {
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-4 mb-6">
           <div className="w-3 h-3 rounded-full bg-gruv-red animate-pulse" />
-          <h2 className="text-gruv-gray uppercase tracking-[0.2em]">Live Terminal Session</h2>
+          <h2 className="text-gruv-gray uppercase tracking-[0.2em]">Phase 07: Link, Load, Execute</h2>
         </div>
 
         <div className="bg-[#181818] p-6 rounded-lg border border-gruv-bg-soft h-[300px] overflow-y-auto shadow-inner custom-scrollbar">
@@ -66,11 +71,11 @@ export default function TerminalFooter() {
         </div>
 
         <div className="mt-10 flex flex-col md:flex-row justify-between text-xs text-gruv-gray uppercase tracking-widest gap-4">
-          <div>© 2026 Compiler Pipeline Portfolio</div>
+          <div>© 2026 Bratik Mukherjee</div>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-gruv-fg transition-colors">GitHub</a>
-            <a href="#" className="hover:text-gruv-fg transition-colors">LinkedIn</a>
-            <a href="#" className="hover:text-gruv-fg transition-colors">X / Twitter</a>
+            <a href="https://github.com/Bimbok" className="hover:text-gruv-fg transition-colors">GitHub</a>
+            <a href="https://linkedin.com/in/bratik-mukherjee" className="hover:text-gruv-fg transition-colors">LinkedIn</a>
+            <a href="https://bimbok-portfolio.vercel.app" className="hover:text-gruv-fg transition-colors">Portfolio</a>
           </div>
         </div>
       </div>

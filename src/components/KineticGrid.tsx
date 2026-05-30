@@ -15,7 +15,7 @@ export default function KineticGrid() {
     let animationFrameId: number;
     let width: number;
     let height: number;
-    let mouse = { x: -1000, y: -1000 };
+    const mouse = { x: -1000, y: -1000 };
 
     const resize = () => {
       width = window.innerWidth;
@@ -33,7 +33,6 @@ export default function KineticGrid() {
     window.addEventListener("mousemove", onMouseMove);
     resize();
 
-    const dots: { x: number; y: number }[] = [];
     const spacing = 30;
 
     const draw = () => {

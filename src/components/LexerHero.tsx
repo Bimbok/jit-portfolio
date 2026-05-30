@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -25,12 +25,7 @@ const tokenize = (code: string) => {
 export default function LexerHero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const scannerRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
   const tokens = tokenize(codeSnippet);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useGSAP(
     () => {
@@ -59,7 +54,7 @@ export default function LexerHero() {
         duration: 0.5,
       }, 0.2);
 
-      gsap.utils.toArray(".token").forEach((token: any) => {
+      gsap.utils.toArray<HTMLElement>(".token").forEach((token) => {
         tl.to(
           token,
           {
@@ -89,9 +84,8 @@ export default function LexerHero() {
       ref={containerRef} 
       className="h-screen w-full flex flex-col items-center justify-center bg-gruv-bg font-mono overflow-hidden relative"
     >
-      {mounted && <KineticGrid />}
+      <KineticGrid />
 
-      {/* Background Gradients from Screenshot */}
       <div className="absolute top-0 left-0 w-[50%] h-full bg-gruv-red/5 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[50%] h-full bg-gruv-aqua/5 blur-[120px] pointer-events-none" />
 
@@ -100,7 +94,7 @@ export default function LexerHero() {
           animate={{ opacity: [0.3, 1, 0.3] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          // PHASE 01: LEXICAL ANALYSIS
+          {"// PHASE 01: LEXICAL ANALYSIS"}
         </motion.div>
         <span className="text-xs tracking-[0.4em] uppercase opacity-50">Scrolling initiates tokenization...</span>
       </div>

@@ -5,7 +5,9 @@ import { AnimatePresence } from "framer-motion";
 import SourceIntro from "@/components/SourceIntro";
 import LexerHero from "@/components/LexerHero";
 import ParserAST from "@/components/ParserAST";
+import CompilerMiddleEnd from "@/components/CompilerMiddleEnd";
 import OptimizerSkills from "@/components/OptimizerSkills";
+import CodeGeneration from "@/components/CodeGeneration";
 import ExecutionProjects from "@/components/ExecutionProjects";
 import TerminalFooter from "@/components/TerminalFooter";
 
@@ -33,7 +35,11 @@ export default function Home() {
         <ParserAST onNodeClick={(id) => setActiveProject(id)} />
       </div>
 
+      <CompilerMiddleEnd />
+
       <OptimizerSkills />
+
+      <CodeGeneration />
       
       <AnimatePresence>
         {activeProject && (
