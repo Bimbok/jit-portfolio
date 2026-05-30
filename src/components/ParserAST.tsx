@@ -7,29 +7,29 @@ const NODE_WIDTH = 200;
 const NODE_HEIGHT = 40;
 
 const initialNodes = [
-  { id: "root", label: "Program", x: 400, y: 20 },
-  { id: "var", label: "VarDeclaration: projects", x: 300, y: 120 },
-  { id: "ping", label: "String: 'Ping'", x: 50, y: 280, isProject: true },
-  { id: "bdoci", label: "String: 'bDoci'", x: 180, y: 310, isProject: true },
-  { id: "sizuka", label: "String: 'Sizuka'", x: 310, y: 280, isProject: true },
+  { id: "root", label: "Program", x: 412, y: 20 },
+  { id: "var", label: "VarDeclaration: projects", x: 412, y: 120 },
+  { id: "ping", label: "String: 'Ping'", x: 87, y: 280, isProject: true },
+  { id: "bdoci", label: "String: 'bDoci'", x: 217, y: 310, isProject: true },
+  { id: "sizuka", label: "String: 'Sizuka'", x: 347, y: 280, isProject: true },
   {
     id: "bimagic",
     label: "String: 'Bimagic'",
-    x: 440,
+    x: 477,
     y: 310,
     isProject: true,
   },
   {
     id: "medcheck",
     label: "String: 'MedCheck'",
-    x: 570,
+    x: 607,
     y: 280,
     isProject: true,
   },
   {
     id: "traffic",
     label: "String: 'Traffic'",
-    x: 700,
+    x: 737,
     y: 310,
     isProject: true,
   },
@@ -166,58 +166,60 @@ export default function ParserAST({
         <span className="text-[10px] md:text-sm opacity-60">{"// Projects become a draggable abstract syntax tree."}</span>
       </div>
 
-      <div
-        ref={containerRef}
-        className="relative z-10 h-[500px] w-full max-w-5xl touch-none origin-center scale-[0.6] sm:scale-[0.8] md:scale-100"
-      >
-        <svg className="absolute inset-0 h-full w-full pointer-events-none overflow-visible">
-          {edges.map((edge, i) => (
-            <motion.path
-              key={`${edge.from}-${edge.to}`}
-              d={getBezierPath(edge.from, edge.to)}
-              stroke="var(--gruv-gray)"
-              strokeWidth="1.5"
-              fill="transparent"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 0.6 }}
-              transition={{ duration: 1, delay: i * 0.1 }}
-            />
-          ))}
-        </svg>
+      <div className="w-full flex justify-center items-center overflow-visible">
+        <div
+          ref={containerRef}
+          className="relative z-10 h-[500px] w-[1024px] touch-none origin-center scale-[0.32] sm:scale-[0.5] md:scale-[0.75] lg:scale-100 shrink-0"
+        >
+          <svg className="absolute inset-0 h-full w-full pointer-events-none overflow-visible">
+            {edges.map((edge, i) => (
+              <motion.path
+                key={`${edge.from}-${edge.to}`}
+                d={getBezierPath(edge.from, edge.to)}
+                stroke="var(--gruv-gray)"
+                strokeWidth="1.5"
+                fill="transparent"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 0.6 }}
+                transition={{ duration: 1, delay: i * 0.1 }}
+              />
+            ))}
+          </svg>
 
-        {initialNodes.map((node) => (
-          <motion.div
-            key={node.id}
-            onPointerDown={(event) => handlePointerDown(event, node.id)}
-            onPointerMove={handlePointerMove}
-            onPointerUp={(event) =>
-              handlePointerUp(event, node.id, node.isProject)
-            }
-            onPointerCancel={() => {
-              dragStateRef.current = null;
-            }}
-            style={{
-              left: positions[node.id].x,
-              top: positions[node.id].y,
-              width: NODE_WIDTH,
-              height: NODE_HEIGHT,
-            }}
-            className={`absolute rounded-full border flex items-center justify-center text-xs shadow-lg cursor-grab active:cursor-grabbing select-none transition-colors backdrop-blur-sm ${
-              node.isProject
-                ? "bg-gruv-yellow/10 border-gruv-yellow text-gruv-yellow hover:bg-gruv-yellow/20 z-20"
-                : node.id === "root"
-                  ? "bg-gruv-green/10 border-gruv-green text-gruv-green z-10"
-                  : "bg-gruv-aqua/10 border-gruv-aqua text-gruv-aqua z-10"
-            }`}
-          >
-            <div className="flex items-center gap-2">
-              {node.isProject && (
-                <div className="w-1.5 h-1.5 rounded-full bg-gruv-yellow" />
-              )}
-              {node.label}
-            </div>
-          </motion.div>
-        ))}
+          {initialNodes.map((node) => (
+            <motion.div
+              key={node.id}
+              onPointerDown={(event) => handlePointerDown(event, node.id)}
+              onPointerMove={handlePointerMove}
+              onPointerUp={(event) =>
+                handlePointerUp(event, node.id, node.isProject)
+              }
+              onPointerCancel={() => {
+                dragStateRef.current = null;
+              }}
+              style={{
+                left: positions[node.id].x,
+                top: positions[node.id].y,
+                width: NODE_WIDTH,
+                height: NODE_HEIGHT,
+              }}
+              className={`absolute rounded-full border flex items-center justify-center text-xs shadow-lg cursor-grab active:cursor-grabbing select-none transition-colors backdrop-blur-sm ${
+                node.isProject
+                  ? "bg-gruv-yellow/10 border-gruv-yellow text-gruv-yellow hover:bg-gruv-yellow/20 z-20"
+                  : node.id === "root"
+                    ? "bg-gruv-green/10 border-gruv-green text-gruv-green z-10"
+                    : "bg-gruv-aqua/10 border-gruv-aqua text-gruv-aqua z-10"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                {node.isProject && (
+                  <div className="w-1.5 h-1.5 rounded-full bg-gruv-yellow" />
+                )}
+                {node.label}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
