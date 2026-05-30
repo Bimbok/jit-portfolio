@@ -417,11 +417,11 @@ export default function TerminalFooter() {
   }, [currentPath]);
 
   return (
-    <footer className="bg-gruv-bg-soft border-t border-gruv-bg-soft p-10 font-mono">
+    <footer className="bg-gruv-bg-soft border-t border-gruv-bg-soft p-6 md:p-10 font-mono">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-4 mb-6">
-          <div className="w-3 h-3 rounded-full bg-gruv-red animate-pulse" />
-          <h2 className="text-gruv-gray uppercase tracking-[0.2em]">Phase 07: Link, Load, Execute</h2>
+          <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-gruv-red animate-pulse" />
+          <h2 className="text-gruv-gray uppercase tracking-[0.2em] text-sm md:text-base">Phase 07: Link, Load, Execute</h2>
         </div>
 
         <Terminal
@@ -434,9 +434,9 @@ export default function TerminalFooter() {
           initialDelay={100}
         />
 
-        <div className="mt-10 flex flex-col md:flex-row justify-between text-xs text-gruv-gray uppercase tracking-widest gap-4">
-          <div>© 2026 Bratik Mukherjee</div>
-          <div className="flex gap-6">
+        <div className="mt-10 flex flex-col md:flex-row justify-between text-[10px] md:text-xs text-gruv-gray uppercase tracking-widest gap-6">
+          <div className="text-center md:text-left">© 2026 Bratik Mukherjee</div>
+          <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-3">
             <a href="https://github.com/Bimbok" className="hover:text-gruv-fg transition-colors">GitHub</a>
             <a href="https://linkedin.com/in/bratik-mukherjee" className="hover:text-gruv-fg transition-colors">LinkedIn</a>
             <a href="https://bimbok-portfolio.vercel.app" className="hover:text-gruv-fg transition-colors">Portfolio</a>

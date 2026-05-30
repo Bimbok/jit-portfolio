@@ -159,16 +159,16 @@ export default function ParserAST({
   };
 
   return (
-    <section className="relative w-full h-screen bg-gruv-bg font-mono overflow-hidden flex flex-col items-center justify-center border-t border-gruv-bg-soft">
-      <div className="absolute top-10 text-gruv-gray text-xl text-center z-20">
+    <section className="relative w-full h-screen bg-gruv-bg font-mono overflow-hidden flex flex-col items-center justify-center border-t border-gruv-bg-soft px-4">
+      <div className="absolute top-10 text-gruv-gray text-base md:text-xl text-center z-20">
         {"// PHASE 02: SYNTAX ANALYSIS"}
         <br />
-        {"// Projects become a draggable abstract syntax tree."}
+        <span className="text-[10px] md:text-sm opacity-60">{"// Projects become a draggable abstract syntax tree."}</span>
       </div>
 
       <div
         ref={containerRef}
-        className="relative z-10 h-[500px] w-full max-w-5xl touch-none"
+        className="relative z-10 h-[500px] w-full max-w-5xl touch-none origin-center scale-[0.6] sm:scale-[0.8] md:scale-100"
       >
         <svg className="absolute inset-0 h-full w-full pointer-events-none overflow-visible">
           {edges.map((edge, i) => (
@@ -202,12 +202,12 @@ export default function ParserAST({
               width: NODE_WIDTH,
               height: NODE_HEIGHT,
             }}
-            className={`absolute rounded-full border flex items-center justify-center text-xs shadow-lg cursor-grab active:cursor-grabbing select-none transition-colors ${
+            className={`absolute rounded-full border flex items-center justify-center text-xs shadow-lg cursor-grab active:cursor-grabbing select-none transition-colors backdrop-blur-sm ${
               node.isProject
-                ? "bg-gruv-yellow/20 border-gruv-yellow text-gruv-yellow hover:bg-gruv-yellow/30 z-20"
+                ? "bg-gruv-yellow/10 border-gruv-yellow text-gruv-yellow hover:bg-gruv-yellow/20 z-20"
                 : node.id === "root"
-                  ? "bg-gruv-green/20 border-gruv-green text-gruv-green z-10"
-                  : "bg-gruv-aqua/20 border-gruv-aqua text-gruv-aqua z-10"
+                  ? "bg-gruv-green/10 border-gruv-green text-gruv-green z-10"
+                  : "bg-gruv-aqua/10 border-gruv-aqua text-gruv-aqua z-10"
             }`}
           >
             <div className="flex items-center gap-2">

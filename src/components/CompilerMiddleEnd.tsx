@@ -103,21 +103,21 @@ export default function CompilerMiddleEnd() {
 
   return (
     <>
-      <section className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gruv-bg px-6 py-24 font-mono">
+      <section className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gruv-bg px-6 py-12 md:py-24 font-mono">
         <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[0.85fr_1.15fr]">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-120px" }}
-            className="flex flex-col justify-center"
+            className="flex flex-col justify-center text-center lg:text-left"
           >
             <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-aqua">
               Phase 03
             </p>
-            <h2 className="text-4xl font-bold text-gruv-fg md:text-6xl">
+            <h2 className="text-3xl font-bold text-gruv-fg md:text-6xl">
               Semantic Analysis
             </h2>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-gruv-gray">
+            <p className="mt-6 max-w-xl text-base md:text-lg leading-relaxed text-gruv-gray mx-auto lg:mx-0">
               The compiler checks whether each symbol in the portfolio has a
               real type, scope, and purpose. Skills, education, systems work,
               and product goals resolve into one consistent developer profile.
@@ -134,25 +134,25 @@ export default function CompilerMiddleEnd() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-120px" }}
                 transition={{ delay: index * 0.08 }}
-                className={`border-l-4 p-5 text-left shadow-lg transition-colors ${
+                className={`border-l-4 p-4 md:p-5 text-left shadow-lg transition-colors ${
                   activeCheck === index
                     ? "border-gruv-yellow bg-gruv-yellow/10"
                     : "border-gruv-aqua bg-gruv-bg-soft/70 hover:bg-gruv-bg-soft"
                 }`}
               >
-                <div className="mb-2 flex items-center justify-between gap-4 text-xs uppercase tracking-[0.2em]">
+                <div className="mb-2 flex items-center justify-between gap-4 text-[10px] md:text-xs uppercase tracking-[0.2em]">
                   <div className="flex items-center gap-2">
                     {check.icon}
                     <span className="text-gruv-gray">{check.label}</span>
                   </div>
                   <span className="text-gruv-green">[{check.status}]</span>
                 </div>
-                <div className="text-xl text-gruv-fg">{check.value}</div>
+                <div className="text-lg md:text-xl text-gruv-fg">{check.value}</div>
                 {activeCheck === index && (
                   <motion.p
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mt-4 text-sm leading-relaxed text-gruv-gray"
+                    className="mt-4 text-xs md:text-sm leading-relaxed text-gruv-gray"
                   >
                     {check.detail}
                   </motion.p>
@@ -163,25 +163,25 @@ export default function CompilerMiddleEnd() {
         </div>
       </section>
 
-      <section className="relative min-h-screen overflow-hidden bg-[#202020] px-6 py-24 font-mono">
+      <section className="relative min-h-screen overflow-hidden bg-[#202020] px-6 py-12 md:py-24 font-mono">
         <div className="mx-auto w-full max-w-6xl">
-          <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="mb-12 flex flex-col justify-between gap-6 lg:flex-row lg:items-end text-center lg:text-left">
             <div>
               <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-yellow">
                 Phase 04
               </p>
-              <h2 className="text-4xl font-bold text-gruv-fg md:text-6xl">
+              <h2 className="text-3xl font-bold text-gruv-fg md:text-6xl">
                 Intermediate Representation
               </h2>
             </div>
-            <p className="max-w-lg text-gruv-gray">
+            <p className="max-w-lg text-sm md:text-base text-gruv-gray mx-auto lg:mx-0">
               Projects are lowered into a common IR so web apps, Android apps,
               CLI tools, and language runtimes can be compared in one pipeline.
             </p>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-[1fr_360px]">
-            <div className="grid gap-4">
+          <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
+            <div className="grid gap-3">
             {irBlocks.map((block, index) => (
               <motion.button
                 key={block.name}
@@ -191,7 +191,7 @@ export default function CompilerMiddleEnd() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ delay: index * 0.06 }}
-                className={`grid gap-4 border p-5 text-left transition-colors md:grid-cols-[110px_160px_1fr] ${
+                className={`grid gap-3 border p-4 md:p-5 text-left transition-colors grid-cols-1 md:grid-cols-[110px_160px_1fr] ${
                   activeIr === index
                     ? "border-gruv-yellow bg-gruv-yellow/10"
                     : "border-gruv-bg-soft bg-gruv-bg/80 hover:border-gruv-gray"
@@ -203,7 +203,7 @@ export default function CompilerMiddleEnd() {
                 </div>
                 <div className="flex items-center gap-2 font-bold text-gruv-yellow">
                   {block.icon}
-                  <span>{block.name}</span>
+                  <span className="text-sm md:text-base">{block.name}</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {block.args.map((arg) => (
@@ -224,7 +224,7 @@ export default function CompilerMiddleEnd() {
               key={irBlocks[activeIr].name}
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              className="border border-gruv-yellow/70 bg-gruv-bg p-6 flex flex-col"
+              className="border border-gruv-yellow/70 bg-gruv-bg p-5 md:p-6 flex flex-col"
             >
               <div className="mb-4 flex items-center justify-between text-xs uppercase tracking-[0.25em] text-gruv-gray">
                 <div className="flex items-center gap-2">

@@ -96,11 +96,11 @@ export default function SourceIntro() {
           />
 
           <div className="relative z-10 grid w-full max-w-6xl gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-            <div>
+            <div className="text-center lg:text-left">
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-6 text-xs uppercase tracking-[0.45em] text-gruv-gray"
+                className="mb-4 text-[10px] md:text-xs uppercase tracking-[0.45em] text-gruv-gray"
               >
                 bimbok compiler os
               </motion.div>
@@ -109,20 +109,20 @@ export default function SourceIntro() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.08 }}
-                className="text-5xl font-bold leading-none text-gruv-fg md:text-7xl"
+                className="text-4xl font-bold leading-tight text-gruv-fg md:text-7xl md:leading-none"
               >
                 Compiling
                 <span className="block text-gruv-yellow">Bratik.exe</span>
               </motion.h1>
 
-              <div className="mt-8 flex flex-wrap gap-2">
+              <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-2">
                 {tokenStream.map((token, index) => (
                   <motion.span
                     key={`${token}-${index}`}
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.035 }}
-                    className="border border-gruv-bg-soft bg-gruv-bg-soft/70 px-3 py-1 text-sm text-gruv-aqua"
+                    className="border border-gruv-bg-soft bg-gruv-bg-soft/70 px-3 py-1 text-xs md:text-sm text-gruv-aqua"
                   >
                     {token}
                   </motion.span>
@@ -130,17 +130,17 @@ export default function SourceIntro() {
               </div>
             </div>
 
-            <div className="border border-gruv-bg-soft bg-[#181818]/86 p-5 shadow-2xl backdrop-blur">
+            <div className="border border-gruv-bg-soft bg-[#181818]/86 p-4 md:p-5 shadow-2xl backdrop-blur">
               <div className="mb-5 flex items-center justify-between border-b border-gruv-bg-soft pb-4">
                 <div className="flex gap-2">
-                  <div className="h-3 w-3 rounded-full bg-gruv-red" />
-                  <div className="h-3 w-3 rounded-full bg-gruv-yellow" />
-                  <div className="h-3 w-3 rounded-full bg-gruv-green" />
+                  <div className="h-2.5 w-2.5 md:h-3 md:w-3 rounded-full bg-gruv-red" />
+                  <div className="h-2.5 w-2.5 md:h-3 md:w-3 rounded-full bg-gruv-yellow" />
+                  <div className="h-2.5 w-2.5 md:h-3 md:w-3 rounded-full bg-gruv-green" />
                 </div>
-                <span className="text-xs text-gruv-gray">loader.vm</span>
+                <span className="text-[10px] md:text-xs text-gruv-gray uppercase">loader.vm</span>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-2 md:space-y-3">
                 {bootPhases.map((phase, index) => {
                   const isActive = index === phaseIndex;
                   const isDone = index < phaseIndex;
@@ -151,19 +151,19 @@ export default function SourceIntro() {
                       initial={{ opacity: 0, x: 18 }}
                       animate={{ opacity: isActive || isDone ? 1 : 0.38, x: 0 }}
                       transition={{ delay: index * 0.04 }}
-                      className={`grid gap-3 border p-3 md:grid-cols-[110px_1fr] ${
+                      className={`grid gap-2 md:gap-3 border p-2 md:p-3 grid-cols-1 md:grid-cols-[110px_1fr] ${
                         isActive
                           ? "border-gruv-yellow bg-gruv-yellow/10"
                           : "border-gruv-bg-soft bg-gruv-bg/60"
                       }`}
                     >
-                      <div className={`font-bold ${phase.color}`}>
+                      <div className={`font-bold text-xs md:text-base ${phase.color}`}>
                         {isDone ? "[OK]" : isActive ? "[RUN]" : "[..]"}{" "}
                         {phase.label}
                       </div>
-                      <div>
-                        <div className="text-gruv-fg">{phase.command}</div>
-                        <div className="mt-1 text-xs text-gruv-gray">
+                      <div className="min-w-0">
+                        <div className="text-gruv-fg text-xs md:text-base truncate">{phase.command}</div>
+                        <div className="mt-1 text-[10px] md:text-xs text-gruv-gray truncate">
                           {phase.output}
                         </div>
                       </div>

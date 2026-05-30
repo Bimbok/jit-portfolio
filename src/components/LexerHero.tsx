@@ -89,17 +89,17 @@ export default function LexerHero() {
       <div className="absolute top-0 left-0 w-[50%] h-full bg-gruv-red/5 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[50%] h-full bg-gruv-aqua/5 blur-[120px] pointer-events-none" />
 
-      <div className="absolute top-20 text-gruv-gray text-xl text-center z-20">
+      <div className="absolute top-10 md:top-20 text-gruv-gray text-base md:text-xl text-center z-20 px-4">
         <motion.div
           animate={{ opacity: [0.3, 1, 0.3] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
           {"// PHASE 01: LEXICAL ANALYSIS"}
         </motion.div>
-        <span className="text-xs tracking-[0.4em] uppercase opacity-50">Scrolling initiates tokenization...</span>
+        <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase opacity-50 block mt-2">Scrolling initiates tokenization...</span>
       </div>
       
-      <div className="editor-window p-8 bg-gruv-bg-soft/80 backdrop-blur-md rounded-lg shadow-2xl border border-gruv-bg-soft z-10 w-full max-w-2xl relative overflow-hidden group">
+      <div className="editor-window p-4 md:p-8 bg-gruv-bg-soft/80 backdrop-blur-md rounded-lg shadow-2xl border border-gruv-bg-soft z-10 w-[calc(100%-2rem)] max-w-2xl relative overflow-hidden group">
         <div 
           ref={scannerRef}
           className="absolute left-0 right-0 h-[2px] bg-gruv-red z-30 shadow-[0_0_15px_#fb4934] pointer-events-none" 
@@ -108,12 +108,12 @@ export default function LexerHero() {
         <div className="absolute inset-0 bg-gruv-red/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
         <div className="flex gap-2 mb-4 border-b border-gruv-bg-soft pb-4">
-          <div className="w-3 h-3 rounded-full bg-gruv-red" />
-          <div className="w-3 h-3 rounded-full bg-gruv-yellow" />
-          <div className="w-3 h-3 rounded-full bg-gruv-green" />
-          <span className="ml-4 text-xs text-gruv-gray">main.rs</span>
+          <div className="h-2.5 w-2.5 md:h-3 md:w-3 rounded-full bg-gruv-red" />
+          <div className="h-2.5 w-2.5 md:h-3 md:w-3 rounded-full bg-gruv-yellow" />
+          <div className="h-2.5 w-2.5 md:h-3 md:w-3 rounded-full bg-gruv-green" />
+          <span className="ml-3 md:ml-4 text-[10px] md:text-xs text-gruv-gray">main.rs</span>
         </div>
-        <pre className="text-lg whitespace-pre-wrap leading-relaxed relative z-20">
+        <pre className="text-sm md:text-lg whitespace-pre-wrap leading-relaxed relative z-20 overflow-x-hidden">
           {tokens.map((token, i) => (
             <motion.span
               key={i}

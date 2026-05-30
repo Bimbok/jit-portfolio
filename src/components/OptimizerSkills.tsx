@@ -60,24 +60,24 @@ export default function OptimizerSkills() {
   const strategy = strategies[activeStrategy];
 
   return (
-    <section className="min-h-screen bg-gruv-bg flex flex-col items-center justify-center px-6 py-24 font-mono relative overflow-hidden">
+    <section className="min-h-screen bg-gruv-bg flex flex-col items-center justify-center px-6 py-12 md:py-24 font-mono relative overflow-hidden">
       <div className="z-10 mb-10 w-full max-w-6xl">
         <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-aqua">
           Phase 05
         </p>
-        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end text-center lg:text-left">
           <div>
-            <h2 className="text-4xl font-bold text-gruv-fg md:text-6xl">
+            <h2 className="text-3xl font-bold text-gruv-fg md:text-6xl">
               Optimization
             </h2>
-            <p className="mt-5 text-lg leading-relaxed text-gruv-gray">
+            <p className="mt-5 text-base md:text-lg leading-relaxed text-gruv-gray max-w-2xl mx-auto lg:mx-0">
               Optimization passes reshape the stack for the artifact being
               compiled, so frontend, Android, and systems work each get a
               different weight profile.
             </p>
           </div>
 
-          <div className="grid gap-3 md:grid-cols-3">
+          <div className="grid gap-3 grid-cols-1 md:grid-cols-3">
             {strategies.map((item, index) => (
               <button
                 key={item.name}
@@ -89,13 +89,13 @@ export default function OptimizerSkills() {
                     : "border-gruv-bg-soft bg-gruv-bg-soft/70 text-gruv-gray hover:border-gruv-gray hover:text-gruv-fg"
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <div className="font-bold">{item.name}</div>
+                <div className="flex items-center justify-between gap-4">
+                  <div className="font-bold text-sm md:text-base">{item.name}</div>
                   <div className={`${activeStrategy === index ? "text-gruv-yellow" : "text-gruv-gray group-hover:text-gruv-fg"}`}>
                     {item.icon}
                   </div>
                 </div>
-                <div className="text-xs leading-relaxed text-gruv-gray">
+                <div className="text-[10px] md:text-xs leading-relaxed text-gruv-gray">
                   {item.description}
                 </div>
               </button>
