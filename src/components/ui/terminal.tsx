@@ -285,6 +285,8 @@ export interface TerminalProps {
   initialDelay?: number;
   enableSound?: boolean;
   showTitleBar?: boolean;
+  isInteractive?: boolean;
+  onCommand?: (command: string) => string[] | string;
 }
 
 export function Terminal({
@@ -297,19 +299,23 @@ export function Terminal({
   initialDelay = 500,
   enableSound = true,
   showTitleBar = true,
+  isInteractive = false,
+  onCommand,
 }: TerminalProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const inView = useInView(containerRef);
   const { down, up } = useAudio(enableSound);
 
   const [lines, setLines] = useState<TerminalLine[]>([]);
   const [currentText, setCurrentText] = useState("");
+  const [userInput, setUserInput] = useState("");
   const [commandIdx, setCommandIdx] = useState(0);
   const [charIdx, setCharIdx] = useState(0);
   const [outputIdx, setOutputIdx] = useState(-1);
   const [phase, setPhase] = useState<
-    "idle" | "typing" | "executing" | "outputting" | "pausing" | "done"
+    "idle" | "typing" | "executing" | "outputting" | "pausing" | "done" | "interactive"
   >("idle");
   const [cursorVisible, setCursorVisible] = useState(true);
 
@@ -322,9 +328,15 @@ export function Terminal({
 
   useEffect(() => {
     if (!inView || phase !== "idle") return;
-    const t = setTimeout(() => setPhase("typing"), initialDelay);
+    const t = setTimeout(() => {
+      if (commands.length === 0 && isInteractive) {
+        setPhase("interactive");
+      } else {
+        setPhase("typing");
+      }
+    }, initialDelay);
     return () => clearTimeout(t);
-  }, [inView, phase, initialDelay]);
+  }, [inView, phase, initialDelay, commands.length, isInteractive]);
 
   useEffect(() => {
     if (phase !== "typing") return;
@@ -361,11 +373,11 @@ export function Terminal({
       setOutputIdx(0);
       setPhase("outputting");
     } else if (isLastCommand) {
-      setPhase("done");
+      setPhase(isInteractive ? "interactive" : "done");
     } else {
       setPhase("pausing");
     }
-  }, [phase, currentCommand, currentOutputs.length, isLastCommand]);
+  }, [phase, currentCommand, currentOutputs.length, isLastCommand, isInteractive]);
 
   useEffect(() => {
     if (phase !== "outputting") return;
@@ -382,14 +394,14 @@ export function Terminal({
     } else if (outputIdx >= currentOutputs.length) {
       const t = setTimeout(() => {
         if (isLastCommand) {
-          setPhase("done");
+          setPhase(isInteractive ? "interactive" : "done");
         } else {
           setPhase("pausing");
         }
       }, 300);
       return () => clearTimeout(t);
     }
-  }, [phase, outputIdx, currentOutputs, isLastCommand]);
+  }, [phase, outputIdx, currentOutputs, isLastCommand, isInteractive]);
 
   useEffect(() => {
     if (phase !== "pausing") return;
@@ -411,7 +423,38 @@ export function Terminal({
     if (contentRef.current) {
       contentRef.current.scrollTop = contentRef.current.scrollHeight;
     }
-  }, [lines, phase]);
+  }, [lines, phase, currentText, userInput]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    if (val.length > userInput.length) {
+      const lastChar = val[val.length - 1];
+      down(lastChar);
+      setTimeout(() => up(lastChar), 50);
+    }
+    setUserInput(val);
+  };
+
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      down("Enter");
+      setTimeout(() => up("Enter"), 50);
+      
+      const cmd = userInput.trim();
+      setLines((prev) => [...prev, { type: "command", content: cmd }]);
+      
+      if (onCommand) {
+        const result = onCommand(cmd);
+        const outputs = Array.isArray(result) ? result : [result];
+        setLines((prev) => [
+          ...prev,
+          ...outputs.map((o) => ({ type: "output" as const, content: o })),
+        ]);
+      }
+      
+      setUserInput("");
+    }
+  };
 
   const prompt = (
     <span className="text-neutral-500">
@@ -429,6 +472,7 @@ export function Terminal({
         "mx-auto w-full max-w-xl px-4 font-mono text-xs",
         className,
       )}
+      onClick={() => inputRef.current?.focus()}
     >
       <div className="overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 shadow-2xl">
         {/* Title Bar */}
@@ -452,7 +496,7 @@ export function Terminal({
         <div
           ref={contentRef}
           className={cn(
-            "no-visible-scrollbar h-80 overflow-y-auto p-4 font-mono",
+            "no-visible-scrollbar h-80 overflow-y-auto p-4 font-mono relative",
             !showTitleBar && "h-40",
           )}
         >
@@ -474,6 +518,27 @@ export function Terminal({
               {prompt}
               <SyntaxHighlightedText text={currentText} />
               <span className="ml-0.5 inline-block h-4 w-2 bg-neutral-300 align-middle" />
+            </div>
+          )}
+
+          {phase === "interactive" && (
+            <div className="leading-relaxed whitespace-pre-wrap relative">
+              {prompt}
+              <SyntaxHighlightedText text={userInput} />
+              <span
+                className={cn(
+                  "ml-0.5 inline-block h-4 w-2 bg-neutral-300 align-middle transition-opacity duration-100",
+                  !cursorVisible && "opacity-0",
+                )}
+              />
+              <input
+                ref={inputRef}
+                autoFocus
+                className="absolute inset-0 opacity-0 cursor-default"
+                value={userInput}
+                onChange={handleInputChange}
+                onKeyDown={handleInputKeyDown}
+              />
             </div>
           )}
 
