@@ -2,31 +2,47 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { 
+  Monitor, 
+  Smartphone, 
+  Terminal as TerminalIcon, 
+  Code2, 
+  Globe, 
+  Atom, 
+  Server, 
+  FastForward, 
+  Database, 
+  Cpu,
+  TrendingUp
+} from "lucide-react";
 
 const skills = [
-  { name: "TypeScript", level: 92, category: "Core" },
-  { name: "Next.js", level: 85, category: "Framework" },
-  { name: "React", level: 90, category: "Framework" },
-  { name: "Kotlin", level: 84, category: "Android" },
-  { name: "Node.js", level: 85, category: "Runtime" },
-  { name: "Go", level: 82, category: "CLI" },
-  { name: "Python", level: 88, category: "AI/Data" },
-  { name: "C/C++", level: 80, category: "Systems" },
+  { name: "TypeScript", level: 92, category: "Core", icon: <Code2 className="w-5 h-5" /> },
+  { name: "Next.js", level: 85, category: "Framework", icon: <Globe className="w-5 h-5" /> },
+  { name: "React", level: 90, category: "Framework", icon: <Atom className="w-5 h-5" /> },
+  { name: "Kotlin", level: 84, category: "Android", icon: <Smartphone className="w-5 h-5" /> },
+  { name: "Node.js", level: 85, category: "Runtime", icon: <Server className="w-5 h-5" /> },
+  { name: "Go", level: 82, category: "CLI", icon: <FastForward className="w-5 h-5" /> },
+  { name: "Python", level: 88, category: "AI/Data", icon: <Database className="w-5 h-5" /> },
+  { name: "C/C++", level: 80, category: "Systems", icon: <Cpu className="w-5 h-5" /> },
 ];
 
 const strategies = [
   {
     name: "Frontend UX",
+    icon: <Monitor className="w-5 h-5" />,
     description: "Prioritize interactive web surfaces and motion-heavy UI.",
     boost: ["TypeScript", "Next.js", "React"],
   },
   {
     name: "Android Native",
+    icon: <Smartphone className="w-5 h-5" />,
     description: "Prioritize offline-first mobile architecture and Kotlin UI.",
     boost: ["Kotlin", "TypeScript", "Node.js"],
   },
   {
     name: "Systems CLI",
+    icon: <TerminalIcon className="w-5 h-5" />,
     description: "Prioritize terminal tooling, low-level performance, and automation.",
     boost: ["C/C++", "Go", "Python"],
   },
@@ -67,14 +83,19 @@ export default function OptimizerSkills() {
                 key={item.name}
                 type="button"
                 onClick={() => setActiveStrategy(index)}
-                className={`border p-4 text-left transition-colors ${
+                className={`border p-4 text-left transition-colors flex flex-col gap-3 relative overflow-hidden group ${
                   activeStrategy === index
                     ? "border-gruv-yellow bg-gruv-yellow/10 text-gruv-yellow"
                     : "border-gruv-bg-soft bg-gruv-bg-soft/70 text-gruv-gray hover:border-gruv-gray hover:text-gruv-fg"
                 }`}
               >
-                <div className="font-bold">{item.name}</div>
-                <div className="mt-2 text-xs leading-relaxed text-gruv-gray">
+                <div className="flex items-center justify-between">
+                  <div className="font-bold">{item.name}</div>
+                  <div className={`${activeStrategy === index ? "text-gruv-yellow" : "text-gruv-gray group-hover:text-gruv-fg"}`}>
+                    {item.icon}
+                  </div>
+                </div>
+                <div className="text-xs leading-relaxed text-gruv-gray">
                   {item.description}
                 </div>
               </button>
@@ -99,18 +120,29 @@ export default function OptimizerSkills() {
             transition={{ delay: i * 0.1, type: "spring", stiffness: 200 }}
             className={`p-6 bg-gruv-bg-soft border-b-4 rounded-lg flex flex-col gap-2 relative group overflow-hidden ${
               strategy.boost.includes(skill.name)
-                ? "border-gruv-yellow"
+                ? "border-gruv-yellow shadow-[0_10px_30px_rgba(250,189,47,0.1)]"
                 : "border-gruv-aqua"
             }`}
           >
             <div className="absolute inset-0 bg-gruv-aqua/0 group-hover:bg-gruv-aqua/10 transition-colors pointer-events-none" />
             
-            <span className="text-xs text-gruv-aqua uppercase tracking-widest">{skill.category}</span>
-            <h3 className="text-2xl font-bold text-gruv-fg">{skill.name}</h3>
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-gruv-aqua uppercase tracking-widest">{skill.category}</span>
+              {strategy.boost.includes(skill.name) && (
+                <TrendingUp className="w-3 h-3 text-gruv-yellow animate-bounce" />
+              )}
+            </div>
+            
+            <div className="flex items-center gap-3 mt-1">
+              <div className={`p-2 rounded-md ${strategy.boost.includes(skill.name) ? "bg-gruv-yellow/10 text-gruv-yellow" : "bg-gruv-bg text-gruv-aqua"}`}>
+                {skill.icon}
+              </div>
+              <h3 className="text-2xl font-bold text-gruv-fg">{skill.name}</h3>
+            </div>
             
             <div className="mt-4 flex items-center justify-between">
               <span className="text-sm text-gruv-gray">Weight:</span>
-              <span className="text-sm text-gruv-green font-bold">
+              <span className={`text-sm font-bold ${strategy.boost.includes(skill.name) ? "text-gruv-yellow" : "text-gruv-green"}`}>
                 [ {strategy.boost.includes(skill.name) ? skill.level + 8 : skill.level}% ]
               </span>
             </div>

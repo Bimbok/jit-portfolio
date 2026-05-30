@@ -2,12 +2,29 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { 
+  Database, 
+  Cpu, 
+  Globe, 
+  Smartphone, 
+  Terminal as TerminalIcon, 
+  Zap, 
+  Hash,
+  Search,
+  ArrowDownToLine,
+  ChevronRight,
+  CheckCircle2,
+  Activity,
+  Code2,
+  Layers
+} from "lucide-react";
 
 const semanticChecks = [
   {
     label: "Developer identity",
     value: "Bratik Mukherjee",
     status: "resolved",
+    icon: <CheckCircle2 className="w-4 h-4 text-gruv-aqua" />,
     detail:
       "The symbol table binds the portfolio to one clear identity: Full Stack + Android developer from West Bengal, India.",
   },
@@ -15,6 +32,7 @@ const semanticChecks = [
     label: "Education scope",
     value: "B.Tech IT, Techno Main Salt Lake",
     status: "valid",
+    icon: <Activity className="w-4 h-4 text-gruv-yellow" />,
     detail:
       "Education provides the scope chain: engineering fundamentals, systems courses, and practical software delivery.",
   },
@@ -22,6 +40,7 @@ const semanticChecks = [
     label: "Core language table",
     value: "C/C++, Java, Kotlin, Go, Rust, JS/TS, Python",
     status: "typed",
+    icon: <Code2 className="w-4 h-4 text-gruv-orange" />,
     detail:
       "Each language maps to a target: JVM and compiler work, native Android, CLI tools, backend APIs, and frontend systems.",
   },
@@ -29,6 +48,7 @@ const semanticChecks = [
     label: "Runtime targets",
     value: "Web, Android, CLI, JVM, AI canvas",
     status: "linked",
+    icon: <Layers className="w-4 h-4 text-gruv-blue" />,
     detail:
       "The final portfolio can emit multiple artifact types instead of presenting every project as the same kind of work.",
   },
@@ -38,6 +58,7 @@ const irBlocks = [
   {
     op: "PROJECT",
     name: "Sizuka",
+    icon: <Cpu className="w-4 h-4" />,
     args: ["Lexer", "Recursive Descent Parser", "AST", "Visitor Pattern"],
     detail:
       "Best compiler-design proof: a custom interpreted language with lexer, parser, AST, scoping, and runtime execution.",
@@ -45,6 +66,7 @@ const irBlocks = [
   {
     op: "PROJECT",
     name: "AlgoScope",
+    icon: <Globe className="w-4 h-4" />,
     args: ["React", "D3.js", "Algorithm Playback", "Learning UX"],
     detail:
       "Best education proof: algorithms become interactive visual states that users can inspect step by step.",
@@ -52,6 +74,7 @@ const irBlocks = [
   {
     op: "PROJECT",
     name: "bDoci",
+    icon: <Smartphone className="w-4 h-4" />,
     args: ["Kotlin", "Room", "MVVM", "Offline P2P QR Sync"],
     detail:
       "Best Android proof: offline-first docs, floating UI, QR-based sharing, Room storage, and real mobile constraints.",
@@ -59,6 +82,7 @@ const irBlocks = [
   {
     op: "PROJECT",
     name: "fyzenor",
+    icon: <TerminalIcon className="w-4 h-4" />,
     args: ["C++17", "Terminal UI", "Async Preview", "File Indexing"],
     detail:
       "Best systems proof: terminal file navigation with fast traversal and asynchronous preview work.",
@@ -66,6 +90,7 @@ const irBlocks = [
   {
     op: "PROJECT",
     name: "creAItr",
+    icon: <Zap className="w-4 h-4" />,
     args: ["Canvas", "Agentic AI", "Python Backend", "Workflow Automation"],
     detail:
       "Best AI/product proof: a creative workspace with an interactive canvas and backend automation pipeline.",
@@ -116,7 +141,10 @@ export default function CompilerMiddleEnd() {
                 }`}
               >
                 <div className="mb-2 flex items-center justify-between gap-4 text-xs uppercase tracking-[0.2em]">
-                  <span className="text-gruv-gray">{check.label}</span>
+                  <div className="flex items-center gap-2">
+                    {check.icon}
+                    <span className="text-gruv-gray">{check.label}</span>
+                  </div>
                   <span className="text-gruv-green">[{check.status}]</span>
                 </div>
                 <div className="text-xl text-gruv-fg">{check.value}</div>
@@ -169,14 +197,21 @@ export default function CompilerMiddleEnd() {
                     : "border-gruv-bg-soft bg-gruv-bg/80 hover:border-gruv-gray"
                 }`}
               >
-                <span className="text-gruv-red">{block.op}</span>
-                <span className="font-bold text-gruv-yellow">{block.name}</span>
+                <div className="flex items-center gap-2 text-gruv-red">
+                  <Database className="w-3 h-3" />
+                  <span className="text-[10px] md:text-xs">{block.op}</span>
+                </div>
+                <div className="flex items-center gap-2 font-bold text-gruv-yellow">
+                  {block.icon}
+                  <span>{block.name}</span>
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {block.args.map((arg) => (
                     <span
                       key={arg}
-                      className="border border-gruv-blue/60 px-2 py-1 text-xs text-gruv-blue"
+                      className="flex items-center gap-1 border border-gruv-blue/60 px-2 py-1 text-[10px] md:text-xs text-gruv-blue"
                     >
+                      <Hash className="w-2 h-2 opacity-60" />
                       {arg}
                     </span>
                   ))}
@@ -189,19 +224,54 @@ export default function CompilerMiddleEnd() {
               key={irBlocks[activeIr].name}
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              className="border border-gruv-yellow/70 bg-gruv-bg p-6"
+              className="border border-gruv-yellow/70 bg-gruv-bg p-6 flex flex-col"
             >
-              <div className="mb-3 text-xs uppercase tracking-[0.25em] text-gruv-gray">
-                IR Inspector
+              <div className="mb-4 flex items-center justify-between text-xs uppercase tracking-[0.25em] text-gruv-gray">
+                <div className="flex items-center gap-2">
+                  <Search className="w-3 h-3" />
+                  <span>IR Inspector</span>
+                </div>
+                <span className="text-gruv-yellow opacity-50">0x{activeIr.toString(16).toUpperCase()}</span>
               </div>
-              <h3 className="mb-4 text-3xl font-bold text-gruv-yellow">
-                {irBlocks[activeIr].name}
-              </h3>
-              <p className="leading-relaxed text-gruv-fg">
-                {irBlocks[activeIr].detail}
-              </p>
-              <div className="mt-6 border-t border-gruv-bg-soft pt-4 text-sm text-gruv-aqua">
-                selected artifact lowered into portfolio IR
+              
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-gruv-yellow/10 border border-gruv-yellow/30 text-gruv-yellow">
+                  {irBlocks[activeIr].icon}
+                </div>
+                <h3 className="text-3xl font-bold text-gruv-yellow">
+                  {irBlocks[activeIr].name}
+                </h3>
+              </div>
+
+              <div className="relative mb-6">
+                <div className="absolute -left-3 top-0 bottom-0 w-px bg-gruv-bg-soft" />
+                <p className="leading-relaxed text-gruv-fg text-sm pl-4 italic">
+                  "{irBlocks[activeIr].detail}"
+                </p>
+              </div>
+
+              <div className="mt-auto space-y-4">
+                <div className="flex flex-col gap-2">
+                  <span className="text-[10px] text-gruv-gray uppercase tracking-widest">Metadata</span>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="bg-gruv-bg-soft/40 p-2 border border-gruv-bg-soft flex items-center gap-2">
+                      <Cpu className="w-3 h-3 text-gruv-aqua" />
+                      <span className="text-[10px] text-gruv-fg">Arch: x86_64</span>
+                    </div>
+                    <div className="bg-gruv-bg-soft/40 p-2 border border-gruv-bg-soft flex items-center gap-2">
+                      <Zap className="w-3 h-3 text-gruv-orange" />
+                      <span className="text-[10px] text-gruv-fg">Opt: O3</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-gruv-bg-soft flex items-center justify-between text-gruv-aqua">
+                  <div className="flex items-center gap-2">
+                    <ArrowDownToLine className="w-3 h-3" />
+                    <span className="text-[10px] uppercase tracking-wider">Lowered artifact</span>
+                  </div>
+                  <ChevronRight className="w-3 h-3 animate-pulse" />
+                </div>
               </div>
             </motion.aside>
           </div>
