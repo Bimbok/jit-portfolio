@@ -270,6 +270,8 @@ function SyntaxHighlightedText({ text }: { text: string }) {
   );
 }
 
+import { motion, AnimatePresence } from "framer-motion";
+
 interface TerminalLine {
   type: "command" | "output";
   content: string;
@@ -287,6 +289,7 @@ export interface TerminalProps {
   showTitleBar?: boolean;
   isInteractive?: boolean;
   onCommand?: (command: string) => string[] | string | { output: string[] | string; action?: "clear" };
+  onClose?: () => void;
 }
 
 export function Terminal({
@@ -301,6 +304,7 @@ export function Terminal({
   showTitleBar = true,
   isInteractive = false,
   onCommand,
+  onClose,
 }: TerminalProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -314,6 +318,7 @@ export function Terminal({
   const [commandIdx, setCommandIdx] = useState(0);
   const [charIdx, setCharIdx] = useState(0);
   const [outputIdx, setOutputIdx] = useState(-1);
+  const [isMaximized, setIsMaximized] = useState(false);
   const [phase, setPhase] = useState<
     "idle" | "typing" | "executing" | "outputting" | "pausing" | "done" | "interactive"
   >("idle");
@@ -325,6 +330,17 @@ export function Terminal({
     [outputs, commandIdx],
   );
   const isLastCommand = commandIdx === commands.length - 1;
+
+  useEffect(() => {
+    if (isMaximized) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isMaximized]);
 
   useEffect(() => {
     if (!inView || phase !== "idle") return;
@@ -482,98 +498,139 @@ export function Terminal({
     </span>
   );
 
-  return (
-    <div
-      ref={containerRef}
-      className={cn(
-        "mx-auto w-full max-w-xl px-4 font-mono text-xs",
-        className,
+  const TerminalBody = (
+    <div className="overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 shadow-2xl flex flex-col h-full w-full">
+      {/* Title Bar */}
+      {showTitleBar && (
+        <div className="flex items-center gap-2 bg-neutral-800 px-4 py-3 shrink-0">
+          <div className="flex items-center gap-1.5">
+            <div 
+              className="h-3 w-3 rounded-full bg-red-500 transition-colors hover:bg-red-600 cursor-pointer" 
+              onClick={(e) => {
+                e.stopPropagation();
+                if (isMaximized) setIsMaximized(false);
+                else if (onClose) onClose();
+              }}
+            />
+            <div className="h-3 w-3 rounded-full bg-yellow-500 transition-colors hover:bg-yellow-600" />
+            <div 
+              className="h-3 w-3 rounded-full bg-green-500 transition-colors hover:bg-green-600 cursor-pointer" 
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMaximized(!isMaximized);
+              }}
+            />
+          </div>
+          <div className="flex-1 text-center">
+            <span className="truncate text-xs text-neutral-400">
+              {username} — bash
+            </span>
+          </div>
+          <div className="w-[52px]" />
+        </div>
       )}
-      onClick={() => inputRef.current?.focus()}
-    >
-      <div className="overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 shadow-2xl">
-        {/* Title Bar */}
-        {showTitleBar && (
-          <div className="flex items-center gap-2 bg-neutral-800 px-4 py-3">
-            <div className="flex items-center gap-1.5">
-              <div className="h-3 w-3 rounded-full bg-red-500 transition-colors hover:bg-red-600" />
-              <div className="h-3 w-3 rounded-full bg-yellow-500 transition-colors hover:bg-yellow-600" />
-              <div className="h-3 w-3 rounded-full bg-green-500 transition-colors hover:bg-green-600" />
-            </div>
-            <div className="flex-1 text-center">
-              <span className="truncate text-xs text-neutral-400">
-                {username} — bash
+
+      {/* Terminal Content */}
+      <div
+        ref={contentRef}
+        className={cn(
+          "no-visible-scrollbar overflow-y-auto p-4 font-mono relative grow",
+          !isMaximized && (showTitleBar ? "h-80" : "h-40")
+        )}
+      >
+        {lines.map((line, i) => (
+          <div key={i} className="leading-relaxed whitespace-pre-wrap text-[10px] md:text-xs">
+            {line.type === "command" ? (
+              <span>
+                {prompt}
+                <SyntaxHighlightedText text={line.content} />
               </span>
-            </div>
-            <div className="w-[52px]" />
+            ) : (
+              <span className="text-neutral-400">{line.content}</span>
+            )}
+          </div>
+        ))}
+
+        {phase === "typing" && (
+          <div className="leading-relaxed whitespace-pre-wrap text-[10px] md:text-xs">
+            {prompt}
+            <SyntaxHighlightedText text={currentText} />
+            <span className="ml-0.5 inline-block h-4 w-2 bg-neutral-300 align-middle" />
           </div>
         )}
 
-        {/* Terminal Content */}
-        <div
-          ref={contentRef}
-          className={cn(
-            "no-visible-scrollbar h-80 overflow-y-auto p-4 font-mono relative",
-            !showTitleBar && "h-40",
-          )}
-        >
-          {lines.map((line, i) => (
-            <div key={i} className="leading-relaxed whitespace-pre-wrap">
-              {line.type === "command" ? (
-                <span>
-                  {prompt}
-                  <SyntaxHighlightedText text={line.content} />
-                </span>
-              ) : (
-                <span className="text-neutral-400">{line.content}</span>
+        {phase === "interactive" && (
+          <div className="leading-relaxed whitespace-pre-wrap relative text-[10px] md:text-xs">
+            {prompt}
+            <SyntaxHighlightedText text={userInput} />
+            <span
+              className={cn(
+                "ml-0.5 inline-block h-4 w-2 bg-neutral-300 align-middle transition-opacity duration-100",
+                !cursorVisible && "opacity-0",
               )}
-            </div>
-          ))}
+            />
+            <input
+              ref={inputRef}
+              autoFocus
+              className="absolute inset-0 opacity-0 cursor-default"
+              value={userInput}
+              onChange={handleInputChange}
+              onKeyDown={handleInputKeyDown}
+            />
+          </div>
+        )}
 
-          {phase === "typing" && (
-            <div className="leading-relaxed whitespace-pre-wrap">
-              {prompt}
-              <SyntaxHighlightedText text={currentText} />
-              <span className="ml-0.5 inline-block h-4 w-2 bg-neutral-300 align-middle" />
-            </div>
-          )}
-
-          {phase === "interactive" && (
-            <div className="leading-relaxed whitespace-pre-wrap relative">
-              {prompt}
-              <SyntaxHighlightedText text={userInput} />
-              <span
-                className={cn(
-                  "ml-0.5 inline-block h-4 w-2 bg-neutral-300 align-middle transition-opacity duration-100",
-                  !cursorVisible && "opacity-0",
-                )}
-              />
-              <input
-                ref={inputRef}
-                autoFocus
-                className="absolute inset-0 opacity-0 cursor-default"
-                value={userInput}
-                onChange={handleInputChange}
-                onKeyDown={handleInputKeyDown}
-              />
-            </div>
-          )}
-
-          {(phase === "done" ||
-            phase === "pausing" ||
-            phase === "outputting") && (
-            <div className="leading-relaxed whitespace-pre-wrap">
-              {prompt}
-              <span
-                className={cn(
-                  "inline-block h-4 w-2 bg-neutral-300 align-middle transition-opacity duration-100",
-                  !cursorVisible && "opacity-0",
-                )}
-              />
-            </div>
-          )}
-        </div>
+        {(phase === "done" ||
+          phase === "pausing" ||
+          phase === "outputting") && (
+          <div className="leading-relaxed whitespace-pre-wrap text-[10px] md:text-xs">
+            {prompt}
+            <span
+              className={cn(
+                "inline-block h-4 w-2 bg-neutral-300 align-middle transition-opacity duration-100",
+                !cursorVisible && "opacity-0",
+              )}
+            />
+          </div>
+        )}
       </div>
     </div>
+  );
+
+  return (
+    <>
+      <div
+        ref={containerRef}
+        className={cn(
+          "mx-auto w-full max-w-xl px-4 font-mono text-xs",
+          className,
+        )}
+        onClick={() => inputRef.current?.focus()}
+      >
+        {TerminalBody}
+      </div>
+
+      <AnimatePresence>
+        {isMaximized && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-xl p-4 md:p-10"
+            onClick={() => setIsMaximized(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="w-full h-full max-w-6xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {TerminalBody}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
