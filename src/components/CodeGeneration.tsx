@@ -110,7 +110,7 @@ export default function CodeGeneration() {
                 </div>
               </div>
               <div className={`p-2 md:p-3 bg-gruv-bg-soft/50 rounded-lg ${target.accent} shrink-0`}>
-                {React.cloneElement(target.icon as React.ReactElement, { className: "w-6 h-6 md:w-8 md:h-8" })}
+                {React.cloneElement(target.icon as React.ReactElement<{ className?: string }>, { className: "w-6 h-6 md:w-8 md:h-8" })}
               </div>
             </div>
 
