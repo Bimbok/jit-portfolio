@@ -286,7 +286,7 @@ export interface TerminalProps {
   enableSound?: boolean;
   showTitleBar?: boolean;
   isInteractive?: boolean;
-  onCommand?: (command: string) => string[] | string;
+  onCommand?: (command: string) => string[] | string | { output: string[] | string; action?: "clear" };
 }
 
 export function Terminal({
@@ -445,11 +445,28 @@ export function Terminal({
       
       if (onCommand) {
         const result = onCommand(cmd);
-        const outputs = Array.isArray(result) ? result : [result];
-        setLines((prev) => [
-          ...prev,
-          ...outputs.map((o) => ({ type: "output" as const, content: o })),
-        ]);
+        let outputLines: string[] = [];
+        let action: "clear" | undefined;
+
+        if (typeof result === "string") {
+          outputLines = [result];
+        } else if (Array.isArray(result)) {
+          outputLines = result;
+        } else if (result && typeof result === "object") {
+          outputLines = Array.isArray(result.output) ? result.output : [result.output as string];
+          action = result.action;
+        }
+
+        if (action === "clear") {
+          setLines([]);
+        } else {
+          setLines((prev) => [
+            ...prev,
+            ...outputLines
+              .filter((o) => o !== undefined && o !== null)
+              .map((o) => ({ type: "output" as const, content: o })),
+          ]);
+        }
       }
       
       setUserInput("");
