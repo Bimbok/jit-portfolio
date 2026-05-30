@@ -2,11 +2,13 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { Terminal as TerminalIcon, Globe, Smartphone, Cpu, Code, Settings } from "lucide-react";
 import { Terminal } from "@/components/ui/terminal";
 
 const codegenTargets = [
   {
     target: "web.bundle",
+    icon: <Globe className="w-4 h-4" />,
     output: "Next.js portfolio, AlgoScope, Ping",
     command: "emit --target web --runtime edge",
     detail:
@@ -15,6 +17,7 @@ const codegenTargets = [
   },
   {
     target: "android.apk",
+    icon: <Smartphone className="w-4 h-4" />,
     output: "bDoci and Koala native Android apps",
     command: "emit --target android --mode offline-first",
     detail:
@@ -23,6 +26,7 @@ const codegenTargets = [
   },
   {
     target: "cli.bin",
+    icon: <TerminalIcon className="w-4 h-4" />,
     output: "bimagic Git automation and fyzenor file manager",
     command: "emit --target cli --profile power-user",
     detail:
@@ -31,6 +35,7 @@ const codegenTargets = [
   },
   {
     target: "jvm.bytecode",
+    icon: <Cpu className="w-4 h-4" />,
     output: "Sizuka interpreted language runtime",
     command: "emit --target jvm --language sizuka",
     detail:
@@ -50,9 +55,12 @@ export default function CodeGeneration() {
           <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-purple">
             Phase 06
           </p>
-          <h2 className="text-4xl font-bold text-gruv-fg md:text-6xl">
-            Code Generation
-          </h2>
+          <div className="flex items-center gap-4 mb-2">
+            <Code className="w-8 h-8 text-gruv-purple" />
+            <h2 className="text-4xl font-bold text-gruv-fg md:text-6xl">
+              Code Generation
+            </h2>
+          </div>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gruv-gray">
             The optimized portfolio IR emits a different artifact for each kind
             of work: web, Android, CLI, and language runtime.
@@ -64,13 +72,14 @@ export default function CodeGeneration() {
                 key={item.target}
                 type="button"
                 onClick={() => setActiveTarget(index)}
-                className={`border px-4 py-3 text-left text-sm transition-colors ${
+                className={`border px-4 py-3 text-left text-sm transition-colors flex items-center gap-3 ${
                   activeTarget === index
                     ? "border-gruv-yellow bg-gruv-yellow/10 text-gruv-yellow"
                     : "border-gruv-bg-soft bg-gruv-bg text-gruv-gray hover:border-gruv-gray hover:text-gruv-fg"
                 }`}
               >
-                {item.target}
+                {item.icon}
+                <span>{item.target}</span>
               </button>
             ))}
           </div>
@@ -86,14 +95,22 @@ export default function CodeGeneration() {
             <div className="h-3 w-3 rounded-full bg-gruv-red" />
             <div className="h-3 w-3 rounded-full bg-gruv-yellow" />
             <div className="h-3 w-3 rounded-full bg-gruv-green" />
-            <span className="ml-3 text-xs text-gruv-gray">codegen.vm</span>
+            <div className="ml-3 flex items-center gap-2 text-xs text-gruv-gray">
+              <Settings className="w-3 h-3" />
+              <span>codegen.vm</span>
+            </div>
           </div>
 
           <div className="space-y-5">
-            <div>
-              <div className="text-sm text-gruv-gray">selected target</div>
-              <div className={`text-4xl font-bold ${target.accent}`}>
-                {target.target}
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-sm text-gruv-gray">selected target</div>
+                <div className={`text-4xl font-bold ${target.accent}`}>
+                  {target.target}
+                </div>
+              </div>
+              <div className={`p-3 bg-gruv-bg-soft/50 rounded-lg ${target.accent}`}>
+                {React.cloneElement(target.icon as React.ReactElement, { className: "w-8 h-8" })}
               </div>
             </div>
 
