@@ -128,7 +128,7 @@ const historyLogs = [
         </p>
       </div>
     ),
-    image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=2070",
+    image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=2070",
   },
   {
     title: "Dynamic Memory and the 'Pack' Engine",
@@ -150,7 +150,7 @@ const historyLogs = [
         </p>
       </div>
     ),
-    image: "https://images.unsplash.com/photo-1647166545674-ce28ce93bdca?auto=format&fit=crop&q=80&w=2070",
+    image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=2070",
   },
   {
     title: "The Visitor Pattern Interpreter",
