@@ -111,6 +111,18 @@ export default function CompilerMiddleEnd() {
   return (
     <>
       <section className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gruv-bg px-6 py-12 md:py-24 font-mono">
+        {/* Background Symbol Table for technical density */}
+        <div className="absolute top-20 left-10 opacity-[0.03] pointer-events-none select-none text-[10px] hidden xl:block">
+          <div className="font-bold mb-2 text-gruv-yellow uppercase">[ Global Symbol Table ]</div>
+          <div className="space-y-1">
+            <div>_S0: DEV_NAME {"->"} "Bratik"</div>
+            <div>_S1: LANG_KOTLIN {"->"} true</div>
+            <div>_S2: SCOPE_GLOBAL {"->"} Object</div>
+            <div>_S3: TYPE_CHECKED {"->"} [DONE]</div>
+            <div>... [ 842 SYMBOLS RESOLVED ] ...</div>
+          </div>
+        </div>
+
         <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[0.85fr_1.15fr]">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -172,6 +184,20 @@ export default function CompilerMiddleEnd() {
       </section>
 
       <section className="relative min-h-screen overflow-hidden bg-[#202020] px-6 py-12 md:py-24 font-mono">
+        {/* Background Type Registry for technical density */}
+        <div className="absolute top-20 right-10 opacity-[0.02] pointer-events-none select-none text-[10px] hidden xl:block">
+          <div className="font-bold mb-2 text-gruv-aqua uppercase">[ Symbol Table / Type Registry ]</div>
+          <div className="space-y-1">
+            <div>0x1A2F: class SizukaRuntime {"->"} Object</div>
+            <div>0x1B44: struct InstructionPacket {"->"} [u8; 16]</div>
+            <div>0x1C89: enum TargetPlatform {"->"} {"{ WEB, ANDROID, CLI }"}</div>
+            <div>0x2001: fn entry_point() {"->"} void</div>
+            <div>0x20A4: var symbol_table: HashMap{"<String, Value>"}</div>
+            <div>0x3011: macro! emit_bytecode(target)</div>
+            <div>... [ 1248 MORE SYMBOLS ] ...</div>
+          </div>
+        </div>
+
         <div className="mx-auto w-full max-w-6xl">
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
@@ -221,17 +247,21 @@ export default function CompilerMiddleEnd() {
               key={irBlocks[activeIr].name}
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              className="border border-gruv-yellow/70 bg-gruv-bg p-5 md:p-6 flex flex-col h-fit"
+              className="border border-gruv-yellow/70 bg-gruv-bg p-5 md:p-6 flex flex-col h-fit relative overflow-hidden"
             >
+              <div className="absolute top-0 right-0 opacity-[0.03] text-[60px] font-bold pointer-events-none select-none -translate-y-4 translate-x-4">
+                0x{activeIr}
+              </div>
+
               <div className="mb-4 flex items-center justify-between text-xs uppercase tracking-[0.25em] text-gruv-gray">
                 <div className="flex items-center gap-2">
                   <Search className="w-3 h-3" />
                   <span>IR Inspector</span>
                 </div>
-                <span className="text-gruv-yellow opacity-50">0x{activeIr.toString(16).toUpperCase()}</span>
+                <span className="text-gruv-yellow opacity-50">Addr: 0x{(activeIr * 1024).toString(16)}</span>
               </div>
               
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-3 mb-6">
                 <div className="p-2 bg-gruv-yellow/10 border border-gruv-yellow/30 text-gruv-yellow">
                   {irBlocks[activeIr].icon}
                 </div>
@@ -240,37 +270,89 @@ export default function CompilerMiddleEnd() {
                 </h3>
               </div>
 
-              <div className="relative mb-6">
+              {/* Instruction Stream */}
+              <div className="mb-6 space-y-2">
+                <div className="text-[10px] text-gruv-gray uppercase tracking-widest mb-2 border-b border-gruv-bg-soft pb-1">Instruction Stream</div>
+                <div className="bg-black/20 p-3 rounded font-mono text-[10px] leading-relaxed text-gruv-aqua/80 max-h-32 overflow-hidden relative">
+                  <div className="animate-pulse">
+                    <div>0x00A1  PUSH  RBP</div>
+                    <div>0x00A2  MOV   RBP, RSP</div>
+                    <div className="text-gruv-yellow">0x00A5  CALL  _{irBlocks[activeIr].name.toLowerCase()}</div>
+                    <div>0x00AF  CMP   EAX, 0x1</div>
+                    <div>0x00B2  JZ    OFFSET_04</div>
+                    <div className="opacity-40">0x00B4  ADD   ESP, 0x10</div>
+                    <div className="opacity-40">0x00B7  RET</div>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gruv-bg to-transparent" />
+                </div>
+              </div>
+
+              <div className="relative mb-8">
                 <div className="absolute -left-3 top-0 bottom-0 w-px bg-gruv-bg-soft" />
                 <p className="leading-relaxed text-gruv-fg text-sm pl-4 italic">
                   "{irBlocks[activeIr].detail}"
                 </p>
               </div>
 
-              <div className="mt-auto space-y-4">
-                <div className="flex flex-col gap-2">
-                  <span className="text-[10px] text-gruv-gray uppercase tracking-widest">Metadata</span>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="bg-gruv-bg-soft/40 p-2 border border-gruv-bg-soft flex items-center gap-2">
-                      <Cpu className="w-3 h-3 text-gruv-aqua" />
-                      <span className="text-[10px] text-gruv-fg">Arch: x86_64</span>
-                    </div>
-                    <div className="bg-gruv-bg-soft/40 p-2 border border-gruv-bg-soft flex items-center gap-2">
-                      <Zap className="w-3 h-3 text-gruv-orange" />
-                      <span className="text-[10px] text-gruv-fg">Opt: O3</span>
-                    </div>
+              {/* Register & Stack State */}
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                  <div className="text-[8px] text-gruv-gray uppercase tracking-widest mb-1">Registers</div>
+                  <div className="grid grid-cols-2 gap-x-2 text-[10px] font-mono border border-gruv-bg-soft p-2 bg-black/10">
+                    <span className="text-gruv-orange">EAX:</span> <span className="text-gruv-fg">0x1</span>
+                    <span className="text-gruv-orange">EBX:</span> <span className="text-gruv-fg">0x0</span>
+                    <span className="text-gruv-orange">ECX:</span> <span className="text-gruv-fg">0xFF</span>
+                    <span className="text-gruv-orange">EDX:</span> <span className="text-gruv-fg">0xA4</span>
                   </div>
                 </div>
-
-                <div className="pt-4 border-t border-gruv-bg-soft flex items-center justify-between text-gruv-aqua">
-                  <div className="flex items-center gap-2">
-                    <ArrowDownToLine className="w-3 h-3" />
-                    <span className="text-[10px] uppercase tracking-wider">Lowered artifact</span>
+                <div>
+                  <div className="text-[8px] text-gruv-gray uppercase tracking-widest mb-1">Metadata</div>
+                  <div className="space-y-1">
+                    <div className="bg-gruv-bg-soft/40 p-1.5 border border-gruv-bg-soft flex items-center gap-2">
+                      <Cpu className="w-2.5 h-2.5 text-gruv-aqua" />
+                      <span className="text-[9px] text-gruv-fg tracking-tighter">Arch: x86_64</span>
+                    </div>
+                    <div className="bg-gruv-bg-soft/40 p-1.5 border border-gruv-bg-soft flex items-center gap-2">
+                      <Zap className="w-2.5 h-2.5 text-gruv-orange" />
+                      <span className="text-[9px] text-gruv-fg tracking-tighter">Opt: O3</span>
+                    </div>
                   </div>
-                  <ChevronRight className="w-3 h-3 animate-pulse" />
                 </div>
               </div>
+
+              <div className="pt-4 border-t border-gruv-bg-soft flex items-center justify-between text-gruv-aqua">
+                <div className="flex items-center gap-2">
+                  <ArrowDownToLine className="w-3 h-3" />
+                  <span className="text-[10px] uppercase tracking-wider">Lowered artifact</span>
+                </div>
+                <ChevronRight className="w-3 h-3 animate-pulse" />
+              </div>
             </motion.aside>
+          </div>
+        </div>
+
+        {/* Bottom Status Bits */}
+        <div className="absolute bottom-10 left-10 opacity-10 flex gap-10 font-mono text-[10px] hidden lg:flex">
+          <div className="flex gap-4">
+            <span className="text-gruv-aqua">MEM_DUMP:</span>
+            <div className="flex gap-1">
+              {[1,0,1,1,0,0,1,1,0,1,0].map((b, i) => (
+                <motion.div 
+                  key={i} 
+                  animate={{ opacity: [0.2, 1, 0.2] }} 
+                  transition={{ duration: 1, delay: i * 0.1, repeat: Infinity }}
+                  className={b ? "text-gruv-yellow" : "text-gruv-gray"}
+                >
+                  {b}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-gruv-aqua">PIPELINE_STAGED:</span> <span className="text-gruv-green">TRUE</span>
+          </div>
+          <div>
+            <span className="text-gruv-aqua">THROUGHPUT:</span> <span className="text-gruv-fg">1.2 GB/S</span>
           </div>
         </div>
       </section>
