@@ -66,7 +66,7 @@ export const Card = React.memo(
             "p-6 rounded-full bg-gruv-bg/50 border border-white/5 backdrop-blur-sm shadow-xl",
             isActive ? "text-gruv-yellow border-gruv-yellow/20" : "text-gruv-aqua"
           )}>
-            {React.cloneElement(card.icon as React.ReactElement, { size: 48 })}
+            {React.cloneElement(card.icon as React.ReactElement<{ size?: number }>, { size: 48 })}
           </div>
         </div>
 
