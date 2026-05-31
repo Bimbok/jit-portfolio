@@ -2,6 +2,7 @@
 
 import React from "react";
 import { TracingBeam } from "@/components/ui/tracing-beam";
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { motion } from "framer-motion";
 
 export default function TracingBeamSection() {
@@ -57,14 +58,23 @@ export default function TracingBeamSection() {
 
               <div className="text-sm md:text-base leading-relaxed text-gruv-gray space-y-6">
                 {item?.image && (
-                  <div className="relative group">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-gruv-blue/20 to-gruv-aqua/20 blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
-                    <img
-                      src={item.image}
-                      alt="System trace thumbnail"
-                      className="rounded-lg mb-8 object-cover border border-gruv-bg-soft relative grayscale hover:grayscale-0 transition-all duration-500 w-full"
-                    />
-                  </div>
+                  <CardContainer className="w-full py-0">
+                    <CardBody className="relative group/card w-full h-auto">
+                      <CardItem
+                        translateZ="100"
+                        className="w-full"
+                      >
+                        <div className="relative group">
+                          <div className="absolute -inset-1 bg-gradient-to-r from-gruv-blue/20 to-gruv-aqua/20 blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
+                          <img
+                            src={item.image}
+                            alt="System trace thumbnail"
+                            className="rounded-lg mb-8 object-cover border border-gruv-bg-soft relative grayscale hover:grayscale-0 transition-all duration-500 w-full"
+                          />
+                        </div>
+                      </CardItem>
+                    </CardBody>
+                  </CardContainer>
                 )}
                 {item.description}
               </div>
