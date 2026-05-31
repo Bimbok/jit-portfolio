@@ -18,6 +18,7 @@ import {
   Code2,
   Layers
 } from "lucide-react";
+import { FocusCards } from "@/components/ui/focus-cards";
 
 const semanticChecks = [
   {
@@ -59,6 +60,7 @@ const irBlocks = [
     op: "PROJECT",
     name: "Sizuka",
     icon: <Cpu className="w-4 h-4" />,
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2070",
     args: ["Lexer", "Recursive Descent Parser", "AST", "Visitor Pattern"],
     detail:
       "Best compiler-design proof: a custom interpreted language with lexer, parser, AST, scoping, and runtime execution.",
@@ -67,6 +69,7 @@ const irBlocks = [
     op: "PROJECT",
     name: "AlgoScope",
     icon: <Globe className="w-4 h-4" />,
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2070",
     args: ["React", "D3.js", "Algorithm Playback", "Learning UX"],
     detail:
       "Best education proof: algorithms become interactive visual states that users can inspect step by step.",
@@ -75,6 +78,7 @@ const irBlocks = [
     op: "PROJECT",
     name: "bDoci",
     icon: <Smartphone className="w-4 h-4" />,
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=2070",
     args: ["Kotlin", "Room", "MVVM", "Offline P2P QR Sync"],
     detail:
       "Best Android proof: offline-first docs, floating UI, QR-based sharing, Room storage, and real mobile constraints.",
@@ -83,6 +87,7 @@ const irBlocks = [
     op: "PROJECT",
     name: "fyzenor",
     icon: <TerminalIcon className="w-4 h-4" />,
+    image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&q=80&w=2070",
     args: ["C++17", "Terminal UI", "Async Preview", "File Indexing"],
     detail:
       "Best systems proof: terminal file navigation with fast traversal and asynchronous preview work.",
@@ -91,6 +96,7 @@ const irBlocks = [
     op: "PROJECT",
     name: "creAItr",
     icon: <Zap className="w-4 h-4" />,
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=2070",
     args: ["Canvas", "Agentic AI", "Python Backend", "Workflow Automation"],
     detail:
       "Best AI/product proof: a creative workspace with an interactive canvas and backend automation pipeline.",
@@ -100,6 +106,12 @@ const irBlocks = [
 export default function CompilerMiddleEnd() {
   const [activeCheck, setActiveCheck] = useState(0);
   const [activeIr, setActiveIr] = useState(0);
+
+  const focusCardsData = irBlocks.map(block => ({
+    title: block.name,
+    src: block.image,
+    category: block.op
+  }));
 
   return (
     <>
@@ -187,51 +199,34 @@ export default function CompilerMiddleEnd() {
             </p>
           </motion.div>
 
-          <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
-            <div className="grid gap-3">
-            {irBlocks.map((block, index) => (
-              <motion.button
-                key={block.name}
-                type="button"
-                onClick={() => setActiveIr(index)}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-                className={`grid gap-3 border p-4 md:p-5 text-left transition-colors grid-cols-1 md:grid-cols-[110px_160px_1fr] ${
-                  activeIr === index
-                    ? "border-gruv-yellow bg-gruv-yellow/10"
-                    : "border-gruv-bg-soft bg-gruv-bg/80 hover:border-gruv-gray"
-                }`}
-              >
-                <div className="flex items-center gap-2 text-gruv-red">
-                  <Database className="w-3 h-3" />
-                  <span className="text-[10px] md:text-xs">{block.op}</span>
-                </div>
-                <div className="flex items-center gap-2 font-bold text-gruv-yellow">
-                  {block.icon}
-                  <span className="text-sm md:text-base">{block.name}</span>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {block.args.map((arg) => (
-                    <span
-                      key={arg}
-                      className="flex items-center gap-1 border border-gruv-blue/60 px-2 py-1 text-[10px] md:text-xs text-gruv-blue"
-                    >
-                      <Hash className="w-2 h-2 opacity-60" />
-                      {arg}
-                    </span>
-                  ))}
-                </div>
-              </motion.button>
-            ))}
+          <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
+            <div>
+              <FocusCards 
+                cards={focusCardsData} 
+                activeCardIndex={activeIr}
+                onCardClick={setActiveIr}
+              />
+              
+              <div className="mt-8 flex flex-wrap gap-3">
+                {irBlocks[activeIr].args.map((arg) => (
+                  <motion.span
+                    key={arg}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="flex items-center gap-2 border border-gruv-blue/60 px-3 py-1.5 text-xs md:text-sm text-gruv-blue bg-gruv-blue/5 rounded-md"
+                  >
+                    <Hash className="w-3 h-3 opacity-60" />
+                    {arg}
+                  </motion.span>
+                ))}
+              </div>
             </div>
 
             <motion.aside
               key={irBlocks[activeIr].name}
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              className="border border-gruv-yellow/70 bg-gruv-bg p-5 md:p-6 flex flex-col"
+              className="border border-gruv-yellow/70 bg-gruv-bg p-5 md:p-6 flex flex-col h-fit"
             >
               <div className="mb-4 flex items-center justify-between text-xs uppercase tracking-[0.25em] text-gruv-gray">
                 <div className="flex items-center gap-2">
@@ -245,7 +240,7 @@ export default function CompilerMiddleEnd() {
                 <div className="p-2 bg-gruv-yellow/10 border border-gruv-yellow/30 text-gruv-yellow">
                   {irBlocks[activeIr].icon}
                 </div>
-                <h3 className="text-3xl font-bold text-gruv-yellow">
+                <h3 className="text-2xl md:text-3xl font-bold text-gruv-fg">
                   {irBlocks[activeIr].name}
                 </h3>
               </div>
