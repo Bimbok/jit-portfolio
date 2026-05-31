@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useCallback, useMemo } from "react";
+import { motion } from "framer-motion";
 import { Terminal } from "@/components/ui/terminal";
 
 // Types for our File System
