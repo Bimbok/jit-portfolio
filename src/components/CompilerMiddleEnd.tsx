@@ -60,7 +60,6 @@ const irBlocks = [
     op: "PROJECT",
     name: "Sizuka",
     icon: <Cpu className="w-4 h-4" />,
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2070",
     args: ["Lexer", "Recursive Descent Parser", "AST", "Visitor Pattern"],
     detail:
       "Best compiler-design proof: a custom interpreted language with lexer, parser, AST, scoping, and runtime execution.",
@@ -69,7 +68,6 @@ const irBlocks = [
     op: "PROJECT",
     name: "AlgoScope",
     icon: <Globe className="w-4 h-4" />,
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2070",
     args: ["React", "D3.js", "Algorithm Playback", "Learning UX"],
     detail:
       "Best education proof: algorithms become interactive visual states that users can inspect step by step.",
@@ -78,7 +76,6 @@ const irBlocks = [
     op: "PROJECT",
     name: "bDoci",
     icon: <Smartphone className="w-4 h-4" />,
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=2070",
     args: ["Kotlin", "Room", "MVVM", "Offline P2P QR Sync"],
     detail:
       "Best Android proof: offline-first docs, floating UI, QR-based sharing, Room storage, and real mobile constraints.",
@@ -87,7 +84,6 @@ const irBlocks = [
     op: "PROJECT",
     name: "fyzenor",
     icon: <TerminalIcon className="w-4 h-4" />,
-    image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&q=80&w=2070",
     args: ["C++17", "Terminal UI", "Async Preview", "File Indexing"],
     detail:
       "Best systems proof: terminal file navigation with fast traversal and asynchronous preview work.",
@@ -96,7 +92,6 @@ const irBlocks = [
     op: "PROJECT",
     name: "creAItr",
     icon: <Zap className="w-4 h-4" />,
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=2070",
     args: ["Canvas", "Agentic AI", "Python Backend", "Workflow Automation"],
     detail:
       "Best AI/product proof: a creative workspace with an interactive canvas and backend automation pipeline.",
@@ -109,7 +104,7 @@ export default function CompilerMiddleEnd() {
 
   const focusCardsData = irBlocks.map(block => ({
     title: block.name,
-    src: block.image,
+    icon: block.icon,
     category: block.op
   }));
 

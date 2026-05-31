@@ -24,24 +24,45 @@ export const Card = React.memo(
       onMouseLeave={() => setHovered(null)}
       onClick={onClick}
       className={cn(
-        "rounded-xl relative bg-gruv-bg-soft overflow-hidden h-40 md:h-60 w-full transition-all duration-300 ease-out cursor-pointer border-2",
+        "rounded-xl relative bg-gruv-bg-soft overflow-hidden h-40 md:h-60 w-full transition-all duration-300 ease-out cursor-pointer border-2 flex items-center justify-center",
         hovered !== null && hovered !== index && "blur-[2px] scale-[0.98] opacity-50",
         isActive ? "border-gruv-yellow shadow-[0_0_20px_rgba(250,189,47,0.2)]" : "border-transparent hover:border-gruv-gray/50"
       )}
     >
-      <img
-        src={card.src}
-        alt={card.title}
-        className="object-cover absolute inset-0 w-full h-full grayscale hover:grayscale-0 transition-all duration-500"
-      />
+      {/* Abstract Background Pattern */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none select-none overflow-hidden font-mono text-[8px] leading-none p-2 break-all">
+        {Array.from({ length: 20 }).map((_, i) => (
+          <div key={i}>
+            0x{Math.random().toString(16).slice(2, 10).toUpperCase()} 
+            PUSH EAX 
+            0x{Math.random().toString(16).slice(2, 6).toUpperCase()} 
+            MOV EBX, [ECX]
+            JMP {Math.random().toString(16).slice(2, 6).toUpperCase()}
+          </div>
+        ))}
+      </div>
+      
+      {/* Large Themed Icon */}
+      <div className={cn(
+        "relative z-10 transition-all duration-500",
+        hovered === index || isActive ? "scale-110 opacity-100" : "scale-100 opacity-40"
+      )}>
+        <div className={cn(
+          "p-6 rounded-full bg-gruv-bg/50 border border-white/5 backdrop-blur-sm",
+          isActive ? "text-gruv-yellow border-gruv-yellow/20" : "text-gruv-aqua"
+        )}>
+          {React.cloneElement(card.icon as React.ReactElement, { size: 48 })}
+        </div>
+      </div>
+
       <div
         className={cn(
-          "absolute inset-0 bg-black/60 flex flex-col justify-end p-4 transition-opacity duration-300",
+          "absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 transition-opacity duration-300",
           hovered === index || isActive ? "opacity-100" : "opacity-0"
         )}
       >
         <div className="text-xs text-gruv-yellow mb-1 font-mono uppercase tracking-widest">{card.category}</div>
-        <div className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-200 font-mono">
+        <div className="text-xl font-bold text-gruv-fg font-mono">
           {card.title}
         </div>
       </div>
@@ -53,8 +74,8 @@ Card.displayName = "Card";
 
 type CardData = {
   title: string;
-  src: string;
   category: string;
+  icon: React.ReactNode;
 };
 
 export function FocusCards({ 
