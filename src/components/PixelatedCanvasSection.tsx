@@ -7,33 +7,35 @@ import { Image as ImageIcon, MousePointer2 } from "lucide-react";
 
 export default function PixelatedCanvasSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gruv-bg px-4 py-12 md:px-6 md:py-24 font-mono border-t border-gruv-bg-soft">
-      <div className="mx-auto grid w-full max-w-6xl gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-        <motion.div 
+    <section className="relative min-h-screen overflow-hidden bg-gruv-bg px-4 py-14 font-mono border-t border-gruv-bg-soft sm:px-6 md:py-24">
+      <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
+        <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-center lg:text-left order-2 lg:order-1 w-full"
+          className="order-2 w-full min-w-0 text-center lg:order-1 lg:text-left"
         >
           <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-orange">
             Visual Buffer
           </p>
-          <div className="flex items-center justify-center lg:justify-start gap-3 md:gap-4 mb-6">
+          <div className="mb-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
             <ImageIcon className="w-5 h-5 md:w-8 md:h-8 text-gruv-orange shrink-0" />
-            <h2 className="text-2xl sm:text-3xl font-bold text-gruv-fg md:text-6xl">
+            <h2 className="text-2xl font-bold leading-tight text-gruv-fg sm:text-3xl md:text-6xl">
               Visual Rendering
             </h2>
           </div>
-          <p className="text-base md:text-lg leading-relaxed text-gruv-gray max-w-xl mx-auto lg:mx-0 mb-8">
-            Artifacts aren't just code. The pipeline renders visual experiences
+          <p className="mx-auto mb-8 max-w-xl text-pretty text-base leading-relaxed text-gruv-gray md:text-lg lg:mx-0">
+            Artifacts are not just code. The pipeline renders visual experiences
             using hardware-accelerated buffers and interactive distortion filters.
           </p>
           
-          <div className="bg-gruv-bg-soft/30 border border-gruv-bg-soft p-6 rounded-xl inline-block text-left w-full lg:w-auto">
-            <div className="flex items-center gap-3 text-gruv-aqua mb-4">
-              <MousePointer2 className="w-4 h-4 animate-pulse" />
-              <span className="text-sm uppercase tracking-widest">Interactive distortion</span>
+          <div className="w-full rounded-xl border border-gruv-bg-soft bg-gruv-bg-soft/30 p-4 text-left sm:p-6 lg:max-w-xl">
+            <div className="mb-4 flex items-center gap-3 text-gruv-aqua">
+              <MousePointer2 className="h-4 w-4 shrink-0 animate-pulse" />
+              <span className="text-xs uppercase tracking-[0.2em] sm:text-sm">
+                Interactive distortion
+              </span>
             </div>
             <ul className="space-y-2 text-xs md:text-sm text-gruv-gray">
               {[
@@ -47,28 +49,29 @@ export default function PixelatedCanvasSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 + (i * 0.1) }}
-                  className="flex gap-2"
+                  className="flex gap-2 leading-relaxed"
                 >
-                  <span className="text-gruv-orange">{item.id}</span>
-                  <span>{item.text}</span>
+                  <span className="shrink-0 text-gruv-orange">{item.id}</span>
+                  <span className="min-w-0">{item.text}</span>
                 </motion.li>
               ))}
             </ul>
           </div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="relative mx-auto lg:mx-0 order-1 lg:order-2 w-fit h-[400px] sm:h-[450px] md:h-fit flex items-center justify-center"
+          className="relative order-1 mx-auto flex w-full max-w-[280px] items-center justify-center sm:max-w-[340px] md:max-w-[400px] lg:order-2 lg:mx-0 lg:justify-self-end"
         >
           <div className="absolute -inset-4 bg-gruv-orange/5 blur-3xl rounded-full" />
-          <div className="relative scale-[0.7] sm:scale-90 md:scale-100 origin-center lg:origin-right">
+          <div className="relative w-full">
             <PixelatedCanvas
               src="/bimbok.png"
               width={400}
               height={500}
+              responsive
               cellSize={3}
               dotScale={0.9}
               shape="square"
@@ -84,10 +87,9 @@ export default function PixelatedCanvasSection() {
               sampleAverage
               tintColor="#FFFFFF"
               tintStrength={0.2}
-              className="rounded-xl border border-gruv-bg-soft shadow-2xl relative z-10 block"
+              className="relative z-10 block rounded-xl border border-gruv-bg-soft shadow-2xl"
             />
             
-            {/* Decorative frame elements */}
             <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-gruv-orange/30 -translate-x-2 -translate-y-2 z-20" />
             <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-gruv-orange/30 translate-x-2 translate-y-2 z-20" />
           </div>
