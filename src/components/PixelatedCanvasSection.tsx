@@ -8,7 +8,7 @@ import { Image as ImageIcon, MousePointer2 } from "lucide-react";
 export default function PixelatedCanvasSection() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-gruv-bg px-6 py-12 md:py-24 font-mono border-t border-gruv-bg-soft">
-      <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+      <div className="mx-auto grid w-full max-w-6xl gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <motion.div 
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -61,10 +61,10 @@ export default function PixelatedCanvasSection() {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="relative mx-auto lg:mx-0 order-1 lg:order-2 w-fit h-fit"
+          className="relative mx-auto lg:mx-0 order-1 lg:order-2 w-fit h-[400px] sm:h-[450px] md:h-fit flex items-center justify-center"
         >
           <div className="absolute -inset-4 bg-gruv-orange/5 blur-3xl rounded-full" />
-          <div className="relative">
+          <div className="relative scale-[0.7] sm:scale-90 md:scale-100 origin-center lg:origin-right">
             <PixelatedCanvas
               src="/bimbok.png"
               width={400}
@@ -84,7 +84,7 @@ export default function PixelatedCanvasSection() {
               sampleAverage
               tintColor="#FFFFFF"
               tintStrength={0.2}
-              className="rounded-xl border border-gruv-bg-soft shadow-2xl relative z-10 w-full max-w-[320px] md:max-w-[400px] h-auto block"
+              className="rounded-xl border border-gruv-bg-soft shadow-2xl relative z-10 block"
             />
             
             {/* Decorative frame elements */}
