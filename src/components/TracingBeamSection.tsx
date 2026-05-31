@@ -108,7 +108,7 @@ const historyLogs = [
         </p>
       </div>
     ),
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2070",
+    image: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=2070",
   },
   {
     title: "Mastering Lexical Scoping and Turing Completeness",
@@ -128,7 +128,7 @@ const historyLogs = [
         </p>
       </div>
     ),
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2072",
+    image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=2070",
   },
   {
     title: "Dynamic Memory and the 'Pack' Engine",
@@ -150,7 +150,7 @@ const historyLogs = [
         </p>
       </div>
     ),
-    image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=2070",
+    image: "https://images.unsplash.com/photo-1647166545674-ce28ce93bdca?auto=format&fit=crop&q=80&w=2070",
   },
   {
     title: "The Visitor Pattern Interpreter",
@@ -171,6 +171,6 @@ const historyLogs = [
         </p>
       </div>
     ),
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=2070",
+    image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=2070",
   },
 ];
