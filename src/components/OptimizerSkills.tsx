@@ -78,7 +78,7 @@ export default function OptimizerSkills() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl font-bold text-gruv-fg md:text-6xl">
+            <h2 className="text-2xl font-bold text-gruv-fg md:text-6xl">
               Optimization
             </h2>
             <p className="mt-5 text-base md:text-lg leading-relaxed text-gruv-gray max-w-2xl mx-auto lg:mx-0">

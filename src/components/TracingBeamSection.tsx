@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 export default function TracingBeamSection() {
   return (
-    <section className="relative bg-[#202020] px-6 py-24 font-mono border-t border-gruv-bg-soft overflow-hidden">
+    <section className="relative bg-[#202020] px-4 py-24 md:px-6 font-mono border-t border-gruv-bg-soft overflow-hidden">
       <div className="max-w-4xl mx-auto mb-16 text-center lg:text-left">
         <motion.p 
           initial={{ opacity: 0, x: -20 }}
@@ -52,7 +52,7 @@ export default function TracingBeamSection() {
                 {item.phase}
               </h3>
 
-              <p className="text-2xl md:text-3xl font-bold text-gruv-fg mb-6">
+              <p className="text-xl md:text-3xl font-bold text-gruv-fg mb-6">
                 {item.title}
               </p>
 

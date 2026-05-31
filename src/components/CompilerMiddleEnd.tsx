@@ -134,7 +134,7 @@ export default function CompilerMiddleEnd() {
             <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-aqua">
               Phase 03
             </p>
-            <h2 className="text-3xl font-bold text-gruv-fg md:text-6xl">
+            <h2 className="text-2xl font-bold text-gruv-fg md:text-6xl">
               Semantic Analysis
             </h2>
             <p className="mt-6 max-w-xl text-base md:text-lg leading-relaxed text-gruv-gray mx-auto lg:mx-0">
@@ -210,7 +210,7 @@ export default function CompilerMiddleEnd() {
               <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-yellow">
                 Phase 04
               </p>
-              <h2 className="text-3xl font-bold text-gruv-fg md:text-6xl">
+              <h2 className="text-2xl font-bold text-gruv-fg md:text-6xl">
                 Intermediate Representation
               </h2>
             </div>

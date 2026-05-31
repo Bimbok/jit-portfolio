@@ -7,21 +7,21 @@ import { Image as ImageIcon, MousePointer2 } from "lucide-react";
 
 export default function PixelatedCanvasSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gruv-bg px-6 py-12 md:py-24 font-mono border-t border-gruv-bg-soft">
+    <section className="relative min-h-screen overflow-hidden bg-gruv-bg px-4 py-12 md:px-6 md:py-24 font-mono border-t border-gruv-bg-soft">
       <div className="mx-auto grid w-full max-w-6xl gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <motion.div 
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-center lg:text-left order-2 lg:order-1"
+          className="text-center lg:text-left order-2 lg:order-1 w-full"
         >
           <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-orange">
             Visual Buffer
           </p>
-          <div className="flex items-center justify-center lg:justify-start gap-4 mb-6">
-            <ImageIcon className="w-6 h-6 md:w-8 md:h-8 text-gruv-orange" />
-            <h2 className="text-3xl font-bold text-gruv-fg md:text-6xl">
+          <div className="flex items-center justify-center lg:justify-start gap-3 md:gap-4 mb-6">
+            <ImageIcon className="w-5 h-5 md:w-8 md:h-8 text-gruv-orange shrink-0" />
+            <h2 className="text-2xl sm:text-3xl font-bold text-gruv-fg md:text-6xl">
               Visual Rendering
             </h2>
           </div>

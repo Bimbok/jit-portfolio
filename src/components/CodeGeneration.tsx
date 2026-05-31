@@ -63,9 +63,10 @@ export default function CodeGeneration() {
         </p>
         <div className="flex items-center justify-center lg:justify-start gap-4 mb-2">
           <Code className="w-6 h-6 md:w-8 md:h-8 text-gruv-purple" />
-          <h2 className="text-3xl font-bold text-gruv-fg md:text-6xl">
+          <h2 className="text-2xl font-bold text-gruv-fg md:text-6xl">
             Code Generation
           </h2>
+
         </div>
         <p className="mt-6 max-w-2xl text-base md:text-lg leading-relaxed text-gruv-gray mx-auto lg:mx-0">
           The optimized portfolio IR emits a different artifact for each kind
