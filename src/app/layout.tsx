@@ -76,6 +76,9 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+  verification: {
+    google: "gFurputTJW0d-GTnJHv-VcLR0X_g7NSB-N2VV71rMno",
+  },
   category: "portfolio",
 };
 
