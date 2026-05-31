@@ -264,7 +264,7 @@ export default function SourceIntro() {
               </div>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );
