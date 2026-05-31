@@ -61,7 +61,7 @@ const INITIAL_FS: Record<string, FSNode> = {
                   "bimagic.md": { type: "file", name: "bimagic.md", content: "Git automation CLI tool." },
                 },
               },
-              "contact.txt": { type: "file", name: "contact.txt", content: "Email: tmsl.it27.bratik@gmail.com\nGitHub: github.com/Bimbok\nLinkedIn: linkedin.com/in/bratik-mukherjee" },
+              "contact.txt": { type: "file", name: "contact.txt", content: "Email: bimbokmkj@gmail.com\nGitHub: github.com/Bimbok\nLinkedIn: linkedin.com/in/bratik-mukherjee" },
               ".bashrc": { type: "file", name: ".bashrc", content: "alias ls='ls --color=auto'\nalias htop='top'\nPS1='[\\u@\\h \\W]\\$ '" },
             },
           },
@@ -451,6 +451,7 @@ export default function TerminalFooter() {
         <div className="mt-10 flex flex-col md:flex-row justify-between text-[10px] md:text-xs text-gruv-gray uppercase tracking-widest gap-6">
           <div className="text-center md:text-left">© 2026 Bratik Mukherjee</div>
           <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-3">
+            <a href="mailto:bimbokmkj@gmail.com" className="hover:text-gruv-fg transition-colors">Email</a>
             <a href="https://github.com/Bimbok" className="hover:text-gruv-fg transition-colors">GitHub</a>
             <a href="https://linkedin.com/in/bratik-mukherjee" className="hover:text-gruv-fg transition-colors">LinkedIn</a>
             <a href="https://bimbok-portfolio.vercel.app" className="hover:text-gruv-fg transition-colors">Portfolio</a>
