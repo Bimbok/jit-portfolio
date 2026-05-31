@@ -54,7 +54,7 @@ export default function PixelatedCanvasSection() {
         >
           <div className="absolute -inset-4 bg-gruv-orange/5 blur-3xl rounded-full" />
           <PixelatedCanvas
-            src="https://assets.aceternity.com/manu-red.png"
+            src="/bimbok.png"
             width={400}
             height={500}
             cellSize={3}
