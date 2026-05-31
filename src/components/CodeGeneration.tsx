@@ -48,7 +48,8 @@ export default function CodeGeneration() {
   const [activeTarget, setActiveTarget] = useState(0);
   const target = codegenTargets[activeTarget];
 
-  <section className="relative min-h-screen overflow-hidden bg-[#202020] px-6 py-12 md:py-24 font-mono">
+  return (
+    <section className="relative min-h-screen overflow-hidden bg-[#202020] px-6 py-12 md:py-24 font-mono">
     <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[0.95fr_1.05fr]">
       <motion.div 
         initial={{ opacity: 0, x: -30 }}
@@ -89,10 +90,10 @@ export default function CodeGeneration() {
               >
                 {item.icon}
                 <span>{item.target}</span>
-              </button>
+              </motion.button>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         <motion.div
           key={target.target}
