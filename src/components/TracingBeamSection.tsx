@@ -150,7 +150,7 @@ const historyLogs = [
         </p>
       </div>
     ),
-    image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=2070",
+    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=2070",
   },
   {
     title: "The Visitor Pattern Interpreter",
