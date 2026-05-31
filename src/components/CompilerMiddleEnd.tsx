@@ -108,7 +108,8 @@ export default function CompilerMiddleEnd() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-120px" }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
             className="flex flex-col justify-center text-center lg:text-left"
           >
             <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-aqua">
@@ -132,8 +133,8 @@ export default function CompilerMiddleEnd() {
                 onClick={() => setActiveCheck(index)}
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-120px" }}
-                transition={{ delay: index * 0.08 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`border-l-4 p-4 md:p-5 text-left shadow-lg transition-colors ${
                   activeCheck === index
                     ? "border-gruv-yellow bg-gruv-yellow/10"
@@ -165,7 +166,13 @@ export default function CompilerMiddleEnd() {
 
       <section className="relative min-h-screen overflow-hidden bg-[#202020] px-6 py-12 md:py-24 font-mono">
         <div className="mx-auto w-full max-w-6xl">
-          <div className="mb-12 flex flex-col justify-between gap-6 lg:flex-row lg:items-end text-center lg:text-left">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7 }}
+            className="mb-12 flex flex-col justify-between gap-6 lg:flex-row lg:items-end text-center lg:text-left"
+          >
             <div>
               <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-yellow">
                 Phase 04
@@ -178,7 +185,7 @@ export default function CompilerMiddleEnd() {
               Projects are lowered into a common IR so web apps, Android apps,
               CLI tools, and language runtimes can be compared in one pipeline.
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
             <div className="grid gap-3">
@@ -189,8 +196,8 @@ export default function CompilerMiddleEnd() {
                 onClick={() => setActiveIr(index)}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ delay: index * 0.06 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
                 className={`grid gap-3 border p-4 md:p-5 text-left transition-colors grid-cols-1 md:grid-cols-[110px_160px_1fr] ${
                   activeIr === index
                     ? "border-gruv-yellow bg-gruv-yellow/10"

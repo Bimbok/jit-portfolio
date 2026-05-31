@@ -48,31 +48,42 @@ export default function CodeGeneration() {
   const [activeTarget, setActiveTarget] = useState(0);
   const target = codegenTargets[activeTarget];
 
-  return (
-    <section className="relative min-h-screen overflow-hidden bg-[#202020] px-6 py-12 md:py-24 font-mono">
-      <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[0.95fr_1.05fr]">
-        <div className="text-center lg:text-left">
-          <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-purple">
-            Phase 06
-          </p>
-          <div className="flex items-center justify-center lg:justify-start gap-4 mb-2">
-            <Code className="w-6 h-6 md:w-8 md:h-8 text-gruv-purple" />
-            <h2 className="text-3xl font-bold text-gruv-fg md:text-6xl">
-              Code Generation
-            </h2>
-          </div>
-          <p className="mt-6 max-w-2xl text-base md:text-lg leading-relaxed text-gruv-gray mx-auto lg:mx-0">
-            The optimized portfolio IR emits a different artifact for each kind
-            of work: web, Android, CLI, and language runtime.
-          </p>
+  <section className="relative min-h-screen overflow-hidden bg-[#202020] px-6 py-12 md:py-24 font-mono">
+    <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+      <motion.div 
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+        className="text-center lg:text-left"
+      >
+        <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-purple">
+          Phase 06
+        </p>
+        <div className="flex items-center justify-center lg:justify-start gap-4 mb-2">
+          <Code className="w-6 h-6 md:w-8 md:h-8 text-gruv-purple" />
+          <h2 className="text-3xl font-bold text-gruv-fg md:text-6xl">
+            Code Generation
+          </h2>
+        </div>
+        <p className="mt-6 max-w-2xl text-base md:text-lg leading-relaxed text-gruv-gray mx-auto lg:mx-0">
+          The optimized portfolio IR emits a different artifact for each kind
+          of work: web, Android, CLI, and language runtime.
+        </p>
 
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {codegenTargets.map((item, index) => (
-              <button
-                key={item.target}
-                type="button"
-                onClick={() => setActiveTarget(index)}
-                className={`border px-4 py-3 text-left text-xs md:text-sm transition-colors flex items-center gap-3 ${
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {codegenTargets.map((item, index) => (
+            <motion.button
+              key={item.target}
+              type="button"
+              onClick={() => setActiveTarget(index)}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: index * 0.08 }}
+              className={`border px-4 py-3 text-left text-xs md:text-sm transition-colors flex items-center gap-3 ${
+  ...
+
                   activeTarget === index
                     ? "border-gruv-yellow bg-gruv-yellow/10 text-gruv-yellow"
                     : "border-gruv-bg-soft bg-gruv-bg text-gruv-gray hover:border-gruv-gray hover:text-gruv-fg"

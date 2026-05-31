@@ -59,31 +59,46 @@ export default function OptimizerSkills() {
   const [activeStrategy, setActiveStrategy] = useState(0);
   const strategy = strategies[activeStrategy];
 
-  return (
-    <section className="min-h-screen bg-gruv-bg flex flex-col items-center justify-center px-6 py-12 md:py-24 font-mono relative overflow-hidden">
-      <div className="z-10 mb-10 w-full max-w-6xl">
-        <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-aqua">
-          Phase 05
-        </p>
-        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end text-center lg:text-left">
-          <div>
-            <h2 className="text-3xl font-bold text-gruv-fg md:text-6xl">
-              Optimization
-            </h2>
-            <p className="mt-5 text-base md:text-lg leading-relaxed text-gruv-gray max-w-2xl mx-auto lg:mx-0">
-              Optimization passes reshape the stack for the artifact being
-              compiled, so frontend, Android, and systems work each get a
-              different weight profile.
-            </p>
-          </div>
+  <section className="min-h-screen bg-gruv-bg flex flex-col items-center justify-center px-6 py-12 md:py-24 font-mono relative overflow-hidden">
+    <div className="z-10 mb-10 w-full max-w-6xl">
+      <motion.p 
+        initial={{ opacity: 0, x: -20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-aqua"
+      >
+        Phase 05
+      </motion.p>
+      <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end text-center lg:text-left">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl font-bold text-gruv-fg md:text-6xl">
+            Optimization
+          </h2>
+          <p className="mt-5 text-base md:text-lg leading-relaxed text-gruv-gray max-w-2xl mx-auto lg:mx-0">
+            Optimization passes reshape the stack for the artifact being
+            compiled, so frontend, Android, and systems work each get a
+            different weight profile.
+          </p>
+        </motion.div>
 
-          <div className="grid gap-3 grid-cols-1 md:grid-cols-3">
-            {strategies.map((item, index) => (
-              <button
-                key={item.name}
-                type="button"
-                onClick={() => setActiveStrategy(index)}
-                className={`border p-4 text-left transition-colors flex flex-col gap-3 relative overflow-hidden group ${
+        <div className="grid gap-3 grid-cols-1 md:grid-cols-3">
+          {strategies.map((item, index) => (
+            <motion.button
+              key={item.name}
+              type="button"
+              onClick={() => setActiveStrategy(index)}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              className={`border p-4 text-left transition-colors flex flex-col gap-3 relative overflow-hidden group ${
+  ...
+
                   activeStrategy === index
                     ? "border-gruv-yellow bg-gruv-yellow/10 text-gruv-yellow"
                     : "border-gruv-bg-soft bg-gruv-bg-soft/70 text-gruv-gray hover:border-gruv-gray hover:text-gruv-fg"

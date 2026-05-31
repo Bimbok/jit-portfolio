@@ -419,20 +419,33 @@ export default function TerminalFooter() {
   return (
     <footer className="bg-gruv-bg-soft border-t border-gruv-bg-soft p-6 md:p-10 font-mono">
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center gap-4 mb-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-4 mb-6"
+        >
           <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-gruv-red animate-pulse" />
           <h2 className="text-gruv-gray uppercase tracking-[0.2em] text-sm md:text-base">Phase 07: Link, Load, Execute</h2>
-        </div>
+        </motion.div>
 
-        <Terminal
-          commands={[]}
-          outputs={{}}
-          username={promptUsername}
-          className="max-w-none px-0"
-          isInteractive={true}
-          onCommand={handleCommand}
-          initialDelay={100}
-        />
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <Terminal
+            commands={[]}
+            outputs={{}}
+            username={promptUsername}
+            className="max-w-none px-0"
+            isInteractive={true}
+            onCommand={handleCommand}
+            initialDelay={100}
+          />
+        </motion.div>
 
         <div className="mt-10 flex flex-col md:flex-row justify-between text-[10px] md:text-xs text-gruv-gray uppercase tracking-widest gap-6">
           <div className="text-center md:text-left">© 2026 Bratik Mukherjee</div>

@@ -9,7 +9,13 @@ export default function PixelatedCanvasSection() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-gruv-bg px-6 py-12 md:py-24 font-mono border-t border-gruv-bg-soft">
       <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-        <div className="text-center lg:text-left order-2 lg:order-1">
+        <motion.div 
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center lg:text-left order-2 lg:order-1"
+        >
           <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-orange">
             Visual Buffer
           </p>
@@ -30,21 +36,26 @@ export default function PixelatedCanvasSection() {
               <span className="text-sm uppercase tracking-widest">Interactive distortion</span>
             </div>
             <ul className="space-y-2 text-xs md:text-sm text-gruv-gray">
-              <li className="flex gap-2">
-                <span className="text-gruv-orange">01.</span>
-                <span>Move cursor over the canvas to distort pixels.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="text-gruv-orange">02.</span>
-                <span>Swirl mode enabled with dynamic jitter.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="text-gruv-orange">03.</span>
-                <span>Adaptive dropout for high-contrast edges.</span>
-              </li>
+              {[
+                { id: "01.", text: "Move cursor over the canvas to distort pixels." },
+                { id: "02.", text: "Swirl mode enabled with dynamic jitter." },
+                { id: "03.", text: "Adaptive dropout for high-contrast edges." },
+              ].map((item, i) => (
+                <motion.li 
+                  key={item.id}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 + (i * 0.1) }}
+                  className="flex gap-2"
+                >
+                  <span className="text-gruv-orange">{item.id}</span>
+                  <span>{item.text}</span>
+                </motion.li>
+              ))}
             </ul>
           </div>
-        </div>
+        </motion.div>
 
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
