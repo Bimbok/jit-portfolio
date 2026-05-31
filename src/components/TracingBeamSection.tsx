@@ -108,7 +108,7 @@ const historyLogs = [
         </p>
       </div>
     ),
-    image: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=2070",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=2070",
   },
   {
     title: "Mastering Lexical Scoping and Turing Completeness",
