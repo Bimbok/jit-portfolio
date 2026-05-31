@@ -50,34 +50,36 @@ export default function PixelatedCanvasSection() {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="relative mx-auto lg:mx-0 order-1 lg:order-2"
+          className="relative mx-auto lg:mx-0 order-1 lg:order-2 w-fit h-fit"
         >
           <div className="absolute -inset-4 bg-gruv-orange/5 blur-3xl rounded-full" />
-          <PixelatedCanvas
-            src="/bimbok.png"
-            width={400}
-            height={500}
-            cellSize={3}
-            dotScale={0.9}
-            shape="square"
-            backgroundColor="#282828"
-            dropoutStrength={0.4}
-            interactive
-            distortionStrength={3}
-            distortionRadius={80}
-            distortionMode="swirl"
-            followSpeed={0.2}
-            jitterStrength={4}
-            jitterSpeed={4}
-            sampleAverage
-            tintColor="#FFFFFF"
-            tintStrength={0.2}
-            className="rounded-xl border border-gruv-bg-soft shadow-2xl relative z-10 w-full max-w-[320px] md:max-w-[400px] h-auto"
-          />
-          
-          {/* Decorative frame elements */}
-          <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-gruv-orange/30 -translate-x-2 -translate-y-2" />
-          <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-gruv-orange/30 translate-x-2 translate-y-2" />
+          <div className="relative">
+            <PixelatedCanvas
+              src="/bimbok.png"
+              width={400}
+              height={500}
+              cellSize={3}
+              dotScale={0.9}
+              shape="square"
+              backgroundColor="#282828"
+              dropoutStrength={0.4}
+              interactive
+              distortionStrength={3}
+              distortionRadius={80}
+              distortionMode="swirl"
+              followSpeed={0.2}
+              jitterStrength={4}
+              jitterSpeed={4}
+              sampleAverage
+              tintColor="#FFFFFF"
+              tintStrength={0.2}
+              className="rounded-xl border border-gruv-bg-soft shadow-2xl relative z-10 w-full max-w-[320px] md:max-w-[400px] h-auto block"
+            />
+            
+            {/* Decorative frame elements */}
+            <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-gruv-orange/30 -translate-x-2 -translate-y-2 z-20" />
+            <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-gruv-orange/30 translate-x-2 translate-y-2 z-20" />
+          </div>
         </motion.div>
       </div>
     </section>
