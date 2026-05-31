@@ -82,8 +82,6 @@ export default function CodeGeneration() {
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.08 }}
               className={`border px-4 py-3 text-left text-xs md:text-sm transition-colors flex items-center gap-3 ${
-  ...
-
                   activeTarget === index
                     ? "border-gruv-yellow bg-gruv-yellow/10 text-gruv-yellow"
                     : "border-gruv-bg-soft bg-gruv-bg text-gruv-gray hover:border-gruv-gray hover:text-gruv-fg"
