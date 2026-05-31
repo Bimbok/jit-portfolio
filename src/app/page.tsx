@@ -8,6 +8,7 @@ import ParserAST from "@/components/ParserAST";
 import CompilerMiddleEnd from "@/components/CompilerMiddleEnd";
 import OptimizerSkills from "@/components/OptimizerSkills";
 import CodeGeneration from "@/components/CodeGeneration";
+import TracingBeamSection from "@/components/TracingBeamSection";
 import PixelatedCanvasSection from "@/components/PixelatedCanvasSection";
 import ExecutionProjects from "@/components/ExecutionProjects";
 import TerminalFooter from "@/components/TerminalFooter";
@@ -41,6 +42,8 @@ export default function Home() {
       <OptimizerSkills />
 
       <CodeGeneration />
+
+      <TracingBeamSection />
 
       <PixelatedCanvasSection />
       
