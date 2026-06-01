@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
+import { generateRandomString, CardPattern } from "@/components/ui/evervault-card";
 
 export const Card = React.memo(
   ({
@@ -13,42 +14,48 @@ export const Card = React.memo(
     onClick,
     isActive,
   }: {
-    card: any;
+    card: {
+      title: string;
+      category: string;
+      icon: React.ReactNode;
+    };
     index: number;
     hovered: number | null;
     setHovered: React.Dispatch<React.SetStateAction<number | null>>;
     onClick?: () => void;
     isActive?: boolean;
   }) => {
-    const [mounted, setMounted] = useState(false);
+    const [randomString, setRandomString] = useState(() => generateRandomString(1500));
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
 
-    React.useEffect(() => {
-      setMounted(true);
-    }, []);
+    function onMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+      const { left, top } = currentTarget.getBoundingClientRect();
+      mouseX.set(clientX - left);
+      mouseY.set(clientY - top);
+
+      const str = generateRandomString(1500);
+      setRandomString(str);
+    }
 
     return (
       <div
         onMouseEnter={() => setHovered(index)}
         onMouseLeave={() => setHovered(null)}
+        onMouseMove={onMouseMove}
         onClick={onClick}
         className={cn(
-          "rounded-xl relative bg-gruv-bg-soft overflow-hidden h-40 md:h-60 w-full transition-all duration-300 ease-out cursor-pointer border-2 flex items-center justify-center group",
+          "rounded-xl relative bg-gruv-bg-soft overflow-hidden h-40 md:h-60 w-full transition-all duration-300 ease-out cursor-pointer border-2 flex items-center justify-center group/card",
           hovered !== null && hovered !== index && "blur-[2px] scale-[0.98] opacity-50",
           isActive ? "border-gruv-yellow shadow-[0_0_20px_rgba(250,189,47,0.2)]" : "border-transparent hover:border-gruv-gray/50"
         )}
       >
-        {/* Abstract Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none select-none overflow-hidden font-mono text-[8px] leading-none p-2 break-all">
-          {mounted && Array.from({ length: 20 }).map((_, i) => (
-            <div key={i}>
-              0x{Math.random().toString(16).slice(2, 10).toUpperCase()} 
-              PUSH EAX 
-              0x{Math.random().toString(16).slice(2, 6).toUpperCase()} 
-              MOV EBX, [ECX]
-              JMP {Math.random().toString(16).slice(2, 6).toUpperCase()}
-            </div>
-          ))}
-        </div>
+        {/* Evervault Hover Pattern */}
+        <CardPattern
+          mouseX={mouseX}
+          mouseY={mouseY}
+          randomString={randomString}
+        />
 
         {/* Memory Offset Chip */}
         <div className="absolute top-3 right-3 z-30">
