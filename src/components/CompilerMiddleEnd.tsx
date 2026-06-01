@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { 
-  Database, 
   Cpu, 
   Globe, 
   Smartphone, 
@@ -16,8 +15,10 @@ import {
   CheckCircle2,
   Activity,
   Code2,
-  Layers
+  Layers,
+  ExternalLink
 } from "lucide-react";
+import { GithubLogo as Github } from "@phosphor-icons/react";
 import { FocusCards } from "@/components/ui/focus-cards";
 
 const semanticChecks = [
@@ -55,7 +56,17 @@ const semanticChecks = [
   },
 ];
 
-const irBlocks = [
+interface IRBlock {
+  op: string;
+  name: string;
+  icon: React.ReactNode;
+  args: string[];
+  detail: string;
+  github?: string;
+  demo?: string;
+}
+
+const irBlocks: IRBlock[] = [
   {
     op: "PROJECT",
     name: "Sizuka",
@@ -63,6 +74,7 @@ const irBlocks = [
     args: ["Lexer", "Recursive Descent Parser", "AST", "Visitor Pattern"],
     detail:
       "Best compiler-design proof: a custom interpreted language with lexer, parser, AST, scoping, and runtime execution.",
+    github: "https://github.com/Bimbok/sizuka.git",
   },
   {
     op: "PROJECT",
@@ -71,6 +83,8 @@ const irBlocks = [
     args: ["React", "D3.js", "Algorithm Playback", "Learning UX"],
     detail:
       "Best education proof: algorithms become interactive visual states that users can inspect step by step.",
+    github: "https://github.com/algoscope-hq/AlgoScope.git",
+    demo: "https://algo-scope-virid.vercel.app/",
   },
   {
     op: "PROJECT",
@@ -79,6 +93,7 @@ const irBlocks = [
     args: ["Kotlin", "Room", "MVVM", "Offline P2P QR Sync"],
     detail:
       "Best Android proof: offline-first docs, floating UI, QR-based sharing, Room storage, and real mobile constraints.",
+    github: "https://github.com/Bimbok/bDoci-app.git",
   },
   {
     op: "PROJECT",
@@ -87,6 +102,7 @@ const irBlocks = [
     args: ["C++17", "Terminal UI", "Async Preview", "File Indexing"],
     detail:
       "Best systems proof: terminal file navigation with fast traversal and asynchronous preview work.",
+    github: "https://github.com/Bimbok/fyzenor.git",
   },
   {
     op: "PROJECT",
@@ -95,6 +111,8 @@ const irBlocks = [
     args: ["Canvas", "Agentic AI", "Python Backend", "Workflow Automation"],
     detail:
       "Best AI/product proof: a creative workspace with an interactive canvas and backend automation pipeline.",
+    github: "https://github.com/aasaan-hainn/creAItr..git",
+    demo: "https://creaitr.arghyadevs.me/",
   },
 ];
 
@@ -115,7 +133,7 @@ export default function CompilerMiddleEnd() {
         <div className="absolute top-20 left-10 opacity-[0.03] pointer-events-none select-none text-[10px] hidden xl:block">
           <div className="font-bold mb-2 text-gruv-yellow uppercase">[ Global Symbol Table ]</div>
           <div className="space-y-1">
-            <div>_S0: DEV_NAME {"->"} "Bratik"</div>
+            <div>_S0: DEV_NAME {"->"} &quot;Bratik&quot;</div>
             <div>_S1: LANG_KOTLIN {"->"} true</div>
             <div>_S2: SCOPE_GLOBAL {"->"} Object</div>
             <div>_S3: TYPE_CHECKED {"->"} [DONE]</div>
@@ -290,7 +308,7 @@ export default function CompilerMiddleEnd() {
               <div className="relative mb-8">
                 <div className="absolute -left-3 top-0 bottom-0 w-px bg-gruv-bg-soft" />
                 <p className="leading-relaxed text-gruv-fg text-sm pl-4 italic">
-                  "{irBlocks[activeIr].detail}"
+                  &quot;{irBlocks[activeIr].detail}&quot;
                 </p>
               </div>
 
@@ -319,6 +337,37 @@ export default function CompilerMiddleEnd() {
                   </div>
                 </div>
               </div>
+
+              {/* External Links */}
+              {(irBlocks[activeIr].github || irBlocks[activeIr].demo) && (
+                <div className="mb-6 space-y-2">
+                  <div className="text-[10px] text-gruv-gray uppercase tracking-widest mb-2 border-b border-gruv-bg-soft pb-1">External Links</div>
+                  <div className="flex gap-2">
+                    {irBlocks[activeIr].github && (
+                      <a 
+                        href={irBlocks[activeIr].github} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-center gap-2 py-2 border border-gruv-bg-soft bg-gruv-bg-soft/20 hover:bg-gruv-bg-soft/40 transition-colors text-[10px] text-gruv-fg uppercase tracking-wider"
+                      >
+                        <Github className="w-3 h-3" />
+                        Source
+                      </a>
+                    )}
+                    {irBlocks[activeIr].demo && (
+                      <a 
+                        href={irBlocks[activeIr].demo} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-center gap-2 py-2 border border-gruv-bg-soft bg-gruv-bg-soft/20 hover:bg-gruv-bg-soft/40 transition-colors text-[10px] text-gruv-fg uppercase tracking-wider"
+                      >
+                        <ExternalLink className="w-3 h-3" />
+                        Demo
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
 
               <div className="pt-4 border-t border-gruv-bg-soft flex items-center justify-between text-gruv-aqua">
                 <div className="flex items-center gap-2">
