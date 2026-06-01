@@ -3,13 +3,14 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Terminal } from "@/components/ui/terminal";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 
 const projectsData = [
   { 
-    id: "ping", 
-    title: "Ping", 
-    desc: "Real-time communication platform built with React and Socket.io.",
-    tech: ["React", "Socket.io", "Node.js"]
+    id: "algoscope", 
+    title: "AlgoScope", 
+    desc: "Project Admin & Lead Maintainer (GirlScript Summer of Code 2026). Managed 35+ global contributors, 50+ PR reviews, and CI/CD pipelines to scale the repository to 51+ forks.",
+    tech: ["React", "D3.js", "CI/CD", "Node.js"]
   },
   { 
     id: "bdoci", 
@@ -80,9 +81,15 @@ export default function ExecutionProjects({ activeProject, onClose }: { activePr
           [ Close X ]
         </button>
 
-        <div className="text-gruv-gray mb-2 text-[10px] md:text-sm uppercase tracking-widest">{"// Linked object inspection"}</div>
-        <h2 className="text-3xl md:text-5xl font-bold text-gruv-yellow mb-4 md:mb-6">{project.title}</h2>
-        <p className="text-lg md:text-2xl text-gruv-fg mb-6 md:mb-10 leading-relaxed">{project.desc}</p>
+        <div className="text-gruv-gray mb-2 text-[10px] md:text-sm uppercase tracking-widest text-left w-full">{"// Linked object inspection"}</div>
+        <div className="mb-4 md:mb-6">
+          <TypewriterEffect 
+            words={[{ text: project.title, className: "text-3xl md:text-5xl font-bold text-gruv-yellow text-left" }]}
+            className="text-left"
+            cursorClassName="bg-gruv-yellow h-6 md:h-10"
+          />
+        </div>
+        <p className="text-lg md:text-2xl text-gruv-fg mb-6 md:mb-10 leading-relaxed text-left">{project.desc}</p>
 
         <div className="flex flex-wrap gap-2 md:gap-4 mb-8 md:mb-10">
           {project.tech.map((tech) => (

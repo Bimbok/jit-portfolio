@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import KineticGrid from "@/components/KineticGrid";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -90,12 +91,11 @@ export default function LexerHero() {
       <div className="absolute bottom-0 right-0 w-[50%] h-full bg-gruv-aqua/5 blur-[120px] pointer-events-none" />
 
       <div className="absolute top-10 md:top-20 text-gruv-gray text-base md:text-xl text-center z-20 px-4">
-        <motion.div
-          animate={{ opacity: [0.3, 1, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          {"// PHASE 01: LEXICAL ANALYSIS"}
-        </motion.div>
+        <TypewriterEffect 
+          words={[{ text: "// PHASE 01: LEXICAL ANALYSIS", className: "text-gruv-aqua text-sm md:text-xl font-mono" }]}
+          className="text-base md:text-xl"
+          cursorClassName="h-4 md:h-6 bg-gruv-aqua"
+        />
         <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase opacity-50 block mt-2">Scrolling initiates tokenization...</span>
       </div>
       

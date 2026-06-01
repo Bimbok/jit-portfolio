@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { GithubLogo as Github } from "@phosphor-icons/react";
 import { FocusCards } from "@/components/ui/focus-cards";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 
 const semanticChecks = [
   {
@@ -82,7 +83,7 @@ const irBlocks: IRBlock[] = [
     icon: <Globe className="w-4 h-4" />,
     args: ["React", "D3.js", "Algorithm Playback", "Learning UX"],
     detail:
-      "Best education proof: algorithms become interactive visual states that users can inspect step by step.",
+      "Lead Maintainer (GirlScript Summer of Code 2026): Managed 35+ global contributors, 50+ PR reviews, 27+ stars, and CI/CD pipelines to scale to 51+ forks.",
     github: "https://github.com/algoscope-hq/AlgoScope.git",
     demo: "https://algo-scope-virid.vercel.app/",
   },
@@ -149,12 +150,14 @@ export default function CompilerMiddleEnd() {
             transition={{ duration: 0.6 }}
             className="flex flex-col justify-center text-center lg:text-left"
           >
-            <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-aqua">
+            <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-aqua text-left">
               Phase 03
             </p>
-            <h2 className="text-2xl font-bold text-gruv-fg md:text-6xl">
-              Semantic Analysis
-            </h2>
+            <TypewriterEffect 
+              words={[{ text: "Semantic Analysis", className: "text-2xl font-bold text-gruv-fg md:text-6xl" }]}
+              className="text-left mb-6"
+              cursorClassName="bg-gruv-aqua h-6 md:h-12"
+            />
             <p className="mt-6 max-w-xl text-base md:text-lg leading-relaxed text-gruv-gray mx-auto lg:mx-0">
               The compiler checks whether each symbol in the portfolio has a
               real type, scope, and purpose. Skills, education, systems work,
@@ -224,13 +227,15 @@ export default function CompilerMiddleEnd() {
             transition={{ duration: 0.7 }}
             className="mb-12 flex flex-col justify-between gap-6 lg:flex-row lg:items-end text-center lg:text-left"
           >
-            <div>
-              <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-yellow">
+            <div className="flex flex-col items-center lg:items-start">
+              <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-yellow text-left w-full">
                 Phase 04
               </p>
-              <h2 className="text-2xl font-bold text-gruv-fg md:text-6xl">
-                Intermediate Representation
-              </h2>
+              <TypewriterEffect 
+                words={[{ text: "Intermediate Representation", className: "text-2xl font-bold text-gruv-fg md:text-6xl text-left" }]}
+                className="text-left mb-6"
+                cursorClassName="bg-gruv-yellow h-6 md:h-12"
+              />
             </div>
             <p className="max-w-lg text-sm md:text-base text-gruv-gray mx-auto lg:mx-0">
               Projects are lowered into a common IR so web apps, Android apps,

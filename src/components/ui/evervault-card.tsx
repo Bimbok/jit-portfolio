@@ -1,6 +1,6 @@
 "use client";
 import { useMotionValue, useMotionTemplate, motion, MotionValue } from "framer-motion";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 export const EvervaultCard = ({
@@ -15,7 +15,11 @@ export const EvervaultCard = ({
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const [randomString, setRandomString] = useState(() => generateRandomString(1500));
+  const [randomString, setRandomString] = useState("");
+
+  useEffect(() => {
+    setRandomString(generateRandomString(1500));
+  }, []);
 
   function onMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
     const { left, top } = currentTarget.getBoundingClientRect();

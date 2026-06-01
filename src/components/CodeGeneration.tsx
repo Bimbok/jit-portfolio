@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Terminal as TerminalIcon, Globe, Smartphone, Cpu, Code, Settings } from "lucide-react";
 import { Terminal } from "@/components/ui/terminal";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 
 const codegenTargets = [
   {
@@ -58,15 +59,18 @@ export default function CodeGeneration() {
         transition={{ duration: 0.6 }}
         className="text-center lg:text-left"
       >
-        <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-purple">
+        <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-purple text-left w-full">
           Phase 06
         </p>
-        <div className="flex items-center justify-center lg:justify-start gap-4 mb-2">
-          <Code className="w-6 h-6 md:w-8 md:h-8 text-gruv-purple" />
-          <h2 className="text-2xl font-bold text-gruv-fg md:text-6xl">
-            Code Generation
-          </h2>
-
+        <div className="flex flex-col items-center lg:items-start mb-6">
+          <div className="flex items-center gap-4 mb-2">
+            <Code className="w-6 h-6 md:w-8 md:h-8 text-gruv-purple" />
+            <TypewriterEffect 
+              words={[{ text: "Code Generation", className: "text-2xl font-bold text-gruv-fg md:text-6xl text-left" }]}
+              className="text-left"
+              cursorClassName="bg-gruv-purple h-6 md:h-12"
+            />
+          </div>
         </div>
         <p className="mt-6 max-w-2xl text-base md:text-lg leading-relaxed text-gruv-gray mx-auto lg:mx-0">
           The optimized portfolio IR emits a different artifact for each kind

@@ -2,6 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 
 const NODE_WIDTH = 200;
 const NODE_HEIGHT = 40;
@@ -161,8 +162,11 @@ export default function ParserAST({
   return (
     <section className="relative w-full h-screen bg-gruv-bg font-mono overflow-hidden flex flex-col items-center justify-center border-t border-gruv-bg-soft px-4">
       <div className="absolute top-10 text-gruv-gray text-base md:text-xl text-center z-20">
-        {"// PHASE 02: SYNTAX ANALYSIS"}
-        <br />
+        <TypewriterEffect 
+          words={[{ text: "// PHASE 02: SYNTAX ANALYSIS", className: "text-gruv-gray text-sm md:text-xl font-mono" }]}
+          className="text-base md:text-xl"
+          cursorClassName="h-4 md:h-6 bg-gruv-gray"
+        />
         <span className="text-[10px] md:text-sm opacity-60">{"// Projects become a draggable abstract syntax tree."}</span>
       </div>
 

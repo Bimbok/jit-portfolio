@@ -18,6 +18,7 @@ import {
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { GlareCard } from "@/components/ui/glare-card";
 import { cn } from "@/lib/utils";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 
 const skills = [
   { name: "TypeScript", level: 92, category: "Core", icon: <Code2 className="w-5 h-5" /> },
@@ -69,7 +70,7 @@ export default function OptimizerSkills() {
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-aqua"
+          className="mb-4 text-sm uppercase tracking-[0.35em] text-gruv-aqua text-center lg:text-left"
         >
           Phase 05
         </motion.p>
@@ -80,9 +81,11 @@ export default function OptimizerSkills() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-2xl font-bold text-gruv-fg md:text-6xl">
-              Optimization
-            </h2>
+            <TypewriterEffect 
+              words={[{ text: "Optimization", className: "text-2xl font-bold text-gruv-fg md:text-6xl text-left" }]}
+              className="text-left mb-6"
+              cursorClassName="bg-gruv-yellow h-6 md:h-12"
+            />
             <p className="mt-5 text-base md:text-lg leading-relaxed text-gruv-gray max-w-2xl mx-auto lg:mx-0">
               Optimization passes reshape the stack for the artifact being
               compiled, so frontend, Android, and systems work each get a
@@ -188,20 +191,14 @@ export default function OptimizerSkills() {
         />
       </div>
 
-      <div className="absolute inset-0 pointer-events-none opacity-20">
+      {/* Background Ambience */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
         {binaryRain.map((bit) => (
           <motion.div
             key={bit.id}
-            className="absolute text-gruv-aqua text-[10px]"
-            initial={{
-              x: bit.x,
-              y: bit.y,
-              opacity: 0.2,
-            }}
-            animate={{
-              y: ["0%", "100%"],
-              opacity: [0.2, 0.5, 0.2]
-            }}
+            className="absolute text-[8px] text-gruv-aqua whitespace-nowrap"
+            initial={{ x: bit.x, y: "-10%" }}
+            animate={{ y: "110%" }}
             transition={{
               duration: bit.duration,
               repeat: Infinity,
