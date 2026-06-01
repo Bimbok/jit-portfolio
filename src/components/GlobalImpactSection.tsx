@@ -80,30 +80,37 @@ export default function GlobalImpactSection() {
   ];
 
   return (
-    <section className="min-h-screen bg-gruv-bg flex flex-col items-center justify-center py-20 relative w-full overflow-hidden border-t border-gruv-bg-soft">
-      <div className="max-w-7xl mx-auto w-full relative h-[40rem] md:h-[50rem] px-4">
+    <section className="min-h-screen bg-gruv-bg flex flex-col items-center pt-24 pb-0 relative w-full overflow-hidden border-t border-gruv-bg-soft">
+      <div className="max-w-7xl mx-auto w-full relative flex flex-col items-center px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="relative z-50 text-center"
+          className="relative z-50 text-center max-w-3xl mb-10"
         >
           <p className="text-gruv-aqua text-sm uppercase tracking-[0.35em] mb-4">Phase 07: Global Linking</p>
-          <h2 className="text-3xl md:text-6xl font-bold text-gruv-fg">
+          <h2 className="text-3xl md:text-6xl font-bold text-gruv-fg mb-6">
             Global Impact
           </h2>
-          <p className="text-gruv-gray text-base md:text-lg max-w-2xl mt-4 mx-auto font-mono">
-            {"// Managed 35+ global contributors across timezones."}<br/>
-            {"// Scaling open-source software to 50+ PRs and 51+ forks."}<br/>
-            {"// Directing CI/CD pipelines for cross-continental delivery."}
-          </p>
+          <div className="space-y-2 font-mono text-xs md:text-base text-gruv-gray">
+            <p>{"// Managed 35+ global contributors across timezones."}</p>
+            <p>{"// Scaling open-source software to 50+ PRs and 51+ forks."}</p>
+            <p>{"// Directing CI/CD pipelines for cross-continental delivery."}</p>
+          </div>
         </motion.div>
         
-        <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent to-gruv-bg z-40" />
-        <div className="absolute w-full inset-0 h-full z-10 scale-125 md:scale-100">
-          <World data={sampleArcs} globeConfig={globeConfig} />
+        {/* Globe Container */}
+        <div className="relative w-full h-[35rem] md:h-[50rem] z-10 pointer-events-none flex items-center justify-center">
+          <div className="w-full h-full scale-125 md:scale-100 flex items-center justify-center">
+            <World data={sampleArcs} globeConfig={globeConfig} />
+          </div>
+          {/* Subtle overlay to fade the globe top */}
+          <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-gruv-bg to-transparent z-20 h-32" />
         </div>
+
+        {/* Bottom fade out */}
+        <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent to-gruv-bg z-40" />
       </div>
     </section>
   );
