@@ -11,6 +11,7 @@ import CodeGeneration from "@/components/CodeGeneration";
 import TracingBeamSection from "@/components/TracingBeamSection";
 import PixelatedCanvasSection from "@/components/PixelatedCanvasSection";
 import ExecutionProjects from "@/components/ExecutionProjects";
+import SignatureSection from "@/components/SignatureSection";
 import TerminalFooter from "@/components/TerminalFooter";
 
 export default function Home() {
@@ -55,6 +56,8 @@ export default function Home() {
           />
         )}
       </AnimatePresence>
+
+      <SignatureSection />
 
       <TerminalFooter />
     </main>
