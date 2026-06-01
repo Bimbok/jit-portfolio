@@ -1,11 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { PixelatedCanvas } from "@/components/ui/pixelated-canvas";
 import { motion } from "framer-motion";
 import { Image as ImageIcon, MousePointer2 } from "lucide-react";
+import { ImageGallery } from "@/components/ui/ImageGallery";
 
 export default function PixelatedCanvasSection() {
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+
   return (
     <section className="relative min-h-screen overflow-hidden bg-gruv-bg px-4 py-14 font-mono border-t border-gruv-bg-soft sm:px-6 md:py-24">
       <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
@@ -20,7 +23,14 @@ export default function PixelatedCanvasSection() {
             Visual Buffer
           </p>
           <div className="mb-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-            <ImageIcon className="w-5 h-5 md:w-8 md:h-8 text-gruv-orange shrink-0" />
+            <button
+              onClick={() => setIsGalleryOpen(true)}
+              className="group relative flex items-center justify-center rounded-lg border border-gruv-orange/20 p-2 transition-all hover:bg-gruv-orange/10 active:scale-95"
+              title="Open Image Gallery"
+            >
+              <ImageIcon className="h-5 w-5 text-gruv-orange transition-transform group-hover:scale-110 md:h-8 md:w-8" />
+              <div className="absolute -inset-1 animate-pulse rounded-lg bg-gruv-orange/5 blur-sm group-hover:bg-gruv-orange/20" />
+            </button>
             <h2 className="text-2xl font-bold leading-tight text-gruv-fg sm:text-3xl md:text-6xl">
               Visual Rendering
             </h2>
@@ -95,6 +105,12 @@ export default function PixelatedCanvasSection() {
           </div>
         </motion.div>
       </div>
+
+      <ImageGallery 
+        isOpen={isGalleryOpen} 
+        onClose={() => setIsGalleryOpen(false)} 
+      />
     </section>
   );
 }
+
