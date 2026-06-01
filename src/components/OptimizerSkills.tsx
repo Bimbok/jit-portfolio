@@ -16,6 +16,8 @@ import {
   TrendingUp
 } from "lucide-react";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
+import { GlareCard } from "@/components/ui/glare-card";
+import { cn } from "@/lib/utils";
 
 const skills = [
   { name: "TypeScript", level: 92, category: "Core", icon: <Code2 className="w-5 h-5" /> },
@@ -127,63 +129,60 @@ export default function OptimizerSkills() {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              whileHover={{ 
-                scale: 1.05, 
-                rotateX: 10, 
-                rotateY: -10,
-                boxShadow: "0 20px 40px rgba(0,0,0,0.4)" 
-              }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, type: "spring", stiffness: 200 }}
-              className={`p-6 bg-gruv-bg-soft border-b-4 rounded-lg flex flex-col gap-2 h-full relative group overflow-hidden ${
+              className="h-full"
+            >
+              <GlareCard className={cn(
+                "p-6 flex flex-col gap-2 h-full relative group overflow-hidden border-b-4",
                 strategy.boost.includes(skill.name)
                   ? "border-gruv-yellow shadow-[0_10px_30px_rgba(250,189,47,0.1)]"
                   : "border-gruv-aqua"
-              }`}
-            >
-              <div className="absolute inset-0 bg-gruv-aqua/0 group-hover:bg-gruv-aqua/10 transition-colors pointer-events-none" />
-              
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-gruv-aqua uppercase tracking-widest">{skill.category}</span>
-                {strategy.boost.includes(skill.name) && (
-                  <TrendingUp className="w-3 h-3 text-gruv-yellow animate-bounce" />
-                )}
-              </div>
-              
-              <div className="flex items-center gap-3 mt-1">
-                <div className={`p-2 rounded-md ${strategy.boost.includes(skill.name) ? "bg-gruv-yellow/10 text-gruv-yellow" : "bg-gruv-bg text-gruv-aqua"}`}>
-                  {skill.icon}
+              )}>
+                <div className="absolute inset-0 bg-gruv-aqua/0 group-hover:bg-gruv-aqua/10 transition-colors pointer-events-none" />
+                
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gruv-aqua uppercase tracking-widest">{skill.category}</span>
+                  {strategy.boost.includes(skill.name) && (
+                    <TrendingUp className="w-3 h-3 text-gruv-yellow animate-bounce" />
+                  )}
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold text-gruv-fg">{skill.name}</h3>
-              </div>
-              
-              <div className="mt-4 flex items-center justify-between">
-                <span className="text-sm text-gruv-gray">Weight:</span>
-                <span className={`text-sm font-bold ${strategy.boost.includes(skill.name) ? "text-gruv-yellow" : "text-gruv-green"}`}>
-                  [ {strategy.boost.includes(skill.name) ? skill.level + 8 : skill.level}% ]
-                </span>
-              </div>
+                
+                <div className="flex items-center gap-3 mt-1">
+                  <div className={`p-2 rounded-md ${strategy.boost.includes(skill.name) ? "bg-gruv-yellow/10 text-gruv-yellow" : "bg-gruv-bg text-gruv-aqua"}`}>
+                    {skill.icon}
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-gruv-fg">{skill.name}</h3>
+                </div>
+                
+                <div className="mt-4 flex items-center justify-between">
+                  <span className="text-sm text-gruv-gray">Weight:</span>
+                  <span className={`text-sm font-bold ${strategy.boost.includes(skill.name) ? "text-gruv-yellow" : "text-gruv-green"}`}>
+                    [ {strategy.boost.includes(skill.name) ? skill.level + 8 : skill.level}% ]
+                  </span>
+                </div>
 
-              <div className="w-full h-1 bg-gruv-bg mt-2 overflow-hidden rounded-full">
-                <motion.div
-                  key={`${activeStrategy}-${skill.name}`}
-                  initial={{ width: 0 }}
-                  animate={{
-                    width: `${Math.min(
+                <div className="w-full h-1 bg-gruv-bg mt-2 overflow-hidden rounded-full">
+                  <motion.div
+                    key={`${activeStrategy}-${skill.name}`}
+                    initial={{ width: 0 }}
+                    animate={{
+                      width: `${Math.min(
+                        strategy.boost.includes(skill.name)
+                          ? skill.level + 8
+                          : skill.level,
+                        100,
+                      )}%`,
+                    }}
+                    transition={{ duration: 1.5, delay: i * 0.1 }}
+                    className={`h-full ${
                       strategy.boost.includes(skill.name)
-                        ? skill.level + 8
-                        : skill.level,
-                      100,
-                    )}%`,
-                  }}
-                  transition={{ duration: 1.5, delay: i * 0.1 }}
-                  className={`h-full ${
-                    strategy.boost.includes(skill.name)
-                      ? "bg-gruv-yellow"
-                      : "bg-gruv-aqua"
-                  }`}
-                />
-              </div>
+                        ? "bg-gruv-yellow"
+                        : "bg-gruv-aqua"
+                    }`}
+                  />
+                </div>
+              </GlareCard>
             </motion.div>
           )}
         />
