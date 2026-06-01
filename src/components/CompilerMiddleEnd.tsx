@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { 
   Cpu, 
@@ -61,6 +62,7 @@ interface IRBlock {
   op: string;
   name: string;
   icon: React.ReactNode;
+  logoSrc?: string;
   args: string[];
   detail: string;
   github?: string;
@@ -81,6 +83,7 @@ const irBlocks: IRBlock[] = [
     op: "PROJECT",
     name: "AlgoScope",
     icon: <Globe className="w-4 h-4" />,
+    logoSrc: "/algoscope.png",
     args: ["React", "D3.js", "Algorithm Playback", "Learning UX"],
     detail:
       "Lead Maintainer (GirlScript Summer of Code 2026): Managed 35+ global contributors, 50+ PR reviews, 27+ stars, and CI/CD pipelines to scale to 51+ forks.",
@@ -91,6 +94,7 @@ const irBlocks: IRBlock[] = [
     op: "PROJECT",
     name: "bDoci",
     icon: <Smartphone className="w-4 h-4" />,
+    logoSrc: "/bDoci.png",
     args: ["Kotlin", "Room", "MVVM", "Offline P2P QR Sync"],
     detail:
       "Best Android proof: offline-first docs, floating UI, QR-based sharing, Room storage, and real mobile constraints.",
@@ -100,6 +104,7 @@ const irBlocks: IRBlock[] = [
     op: "PROJECT",
     name: "fyzenor",
     icon: <TerminalIcon className="w-4 h-4" />,
+    logoSrc: "/fyzenor.png",
     args: ["C++17", "Terminal UI", "Async Preview", "File Indexing"],
     detail:
       "Best systems proof: terminal file navigation with fast traversal and asynchronous preview work.",
@@ -109,6 +114,7 @@ const irBlocks: IRBlock[] = [
     op: "PROJECT",
     name: "creAItr",
     icon: <Zap className="w-4 h-4" />,
+    logoSrc: "/creaitr..png",
     args: ["Canvas", "Agentic AI", "Python Backend", "Workflow Automation"],
     detail:
       "Best AI/product proof: a creative workspace with an interactive canvas and backend automation pipeline.",
@@ -124,6 +130,7 @@ export default function CompilerMiddleEnd() {
   const focusCardsData = irBlocks.map(block => ({
     title: block.name,
     icon: block.icon,
+    logoSrc: block.logoSrc,
     category: block.op
   }));
 
@@ -286,7 +293,18 @@ export default function CompilerMiddleEnd() {
               
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-2 bg-gruv-yellow/10 border border-gruv-yellow/30 text-gruv-yellow">
-                  {irBlocks[activeIr].icon}
+                  {irBlocks[activeIr].logoSrc ? (
+                    <Image
+                      src={irBlocks[activeIr].logoSrc}
+                      alt={`${irBlocks[activeIr].name} logo`}
+                      width={32}
+                      height={32}
+                      unoptimized={irBlocks[activeIr].logoSrc === "/bDoci.png"}
+                      className="h-8 w-8 object-contain"
+                    />
+                  ) : (
+                    irBlocks[activeIr].icon
+                  )}
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold text-gruv-fg">
                   {irBlocks[activeIr].name}

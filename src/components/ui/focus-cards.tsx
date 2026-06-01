@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { motion, useMotionValue } from "framer-motion";
 import { generateRandomString, CardPattern } from "@/components/ui/evervault-card";
@@ -18,6 +19,7 @@ export const Card = React.memo(
       title: string;
       category: string;
       icon: React.ReactNode;
+      logoSrc?: string;
     };
     index: number;
     hovered: number | null;
@@ -74,10 +76,21 @@ export const Card = React.memo(
           hovered === index || isActive ? "scale-110 opacity-100" : "scale-100 opacity-40"
         )}>
           <div className={cn(
-            "p-6 rounded-full bg-gruv-bg/50 border border-white/5 backdrop-blur-sm shadow-xl",
+            "flex h-24 w-24 items-center justify-center rounded-full bg-gruv-bg/50 border border-white/5 backdrop-blur-sm shadow-xl",
             isActive ? "text-gruv-yellow border-gruv-yellow/20" : "text-gruv-aqua"
           )}>
-            {React.cloneElement(card.icon as React.ReactElement<{ size?: number }>, { size: 48 })}
+            {card.logoSrc ? (
+              <Image
+                src={card.logoSrc}
+                alt={`${card.title} logo`}
+                width={72}
+                height={72}
+                unoptimized={card.logoSrc === "/bDoci.png"}
+                className="h-16 w-16 object-contain"
+              />
+            ) : (
+              React.cloneElement(card.icon as React.ReactElement<{ size?: number }>, { size: 48 })
+            )}
           </div>
         </div>
 
@@ -116,6 +129,7 @@ type CardData = {
   title: string;
   category: string;
   icon: React.ReactNode;
+  logoSrc?: string;
 };
 
 export function FocusCards({ 
