@@ -104,7 +104,7 @@ export function ImageGallery({ isOpen, onClose }: ImageGalleryProps) {
                     >
                       <Image
                         src={src}
-                        alt={`Gallery Image ${idx + 1}`}
+                        alt={src.split('/').pop()?.split('.')[0].replace(/[-_]/g, ' ') || "Gallery Asset"}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-110"
                       />
