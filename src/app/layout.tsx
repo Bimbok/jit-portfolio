@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://jit-portfolio-bimbok.vercel.app"),
+  metadataBase: new URL("https://bimbok.vercel.app"),
   title: {
     default: "Bratik Mukherjee | Full Stack & Android Developer",
     template: "%s | Bratik Mukherjee",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     "bimagic",
     "fyzenor",
   ],
-  authors: [{ name: "Bratik Mukherjee", url: "https://jit-portfolio-bimbok.vercel.app" }],
+  authors: [{ name: "Bratik Mukherjee", url: "https://bimbok.vercel.app" }],
   creator: "Bratik Mukherjee",
   publisher: "Bratik Mukherjee",
   alternates: {
@@ -59,12 +59,21 @@ export const metadata: Metadata = {
     siteName: "Bratik Mukherjee Portfolio",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/bimbok.png",
+        width: 1200,
+        height: 630,
+        alt: "Bratik Mukherjee Portfolio Preview",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Bratik Mukherjee | Full Stack & Android Developer",
     description:
       "Compiler-themed portfolio of Bratik Mukherjee: React, Next.js, Kotlin, Android, CLI tools, compiler design, and AI projects.",
+    images: ["/bimbok.png"],
   },
   robots: {
     index: true,
@@ -88,11 +97,39 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Bratik Mukherjee",
+    alternateName: "Bimbok",
+    url: "https://bimbok.vercel.app",
+    jobTitle: "Full Stack & Android Developer",
+    knowsAbout: [
+      "Full Stack Development",
+      "Android Development",
+      "Next.js",
+      "React",
+      "Kotlin",
+      "Compiler Design",
+      "AI Workflows",
+    ],
+    sameAs: [
+      "https://github.com/Bimbok",
+      "https://linkedin.com/in/bratik-mukherjee", // Assuming standard LinkedIn URL structure
+    ],
+  };
+
   return (
     <html
       lang="en"
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-mono", jetbrainsMono.variable)}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         <SmoothScroll>{children}</SmoothScroll>
       </body>
