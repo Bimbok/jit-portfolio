@@ -80,20 +80,20 @@ export default function GlobalImpactSection() {
   ];
 
   return (
-    <section className="min-h-[70vh] md:min-h-screen bg-gruv-bg flex flex-col items-center pt-16 md:pt-32 pb-0 relative w-full overflow-hidden border-t border-gruv-bg-soft">
-      <div className="max-w-7xl mx-auto w-full relative flex flex-col items-center px-4">
+    <section className="min-h-[100svh] bg-gruv-bg flex items-center justify-center py-14 sm:py-16 md:py-20 relative w-full overflow-hidden border-t border-gruv-bg-soft">
+      <div className="max-w-7xl mx-auto w-full min-h-[calc(100svh-7rem)] sm:min-h-[calc(100svh-8rem)] md:min-h-[calc(100svh-10rem)] relative flex flex-col items-center justify-center px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="relative z-50 text-center max-w-3xl mb-4 md:mb-10"
+          className="relative z-50 text-center w-full max-w-3xl mb-6 sm:mb-8 md:mb-10"
         >
-          <p className="text-gruv-aqua text-[10px] md:text-sm uppercase tracking-[0.35em] mb-3 md:mb-4">Phase 07: Global Linking</p>
-          <h2 className="text-2xl md:text-6xl font-bold text-gruv-fg mb-4 md:mb-6">
+          <p className="text-gruv-aqua text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.28em] sm:tracking-[0.35em] mb-3 md:mb-4">Phase 07: Global Linking</p>
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-gruv-fg mb-4 md:mb-6">
             Global Impact
           </h2>
-          <div className="space-y-1 md:space-y-2 font-mono text-[9px] md:text-base text-gruv-gray leading-tight">
+          <div className="space-y-1.5 md:space-y-2 font-mono text-[10px] sm:text-xs md:text-base text-gruv-gray leading-relaxed">
             <p>{"// Managed 35+ global contributors across timezones."}</p>
             <p>{"// Scaling open-source software to 50+ PRs and 51+ forks."}</p>
             <p>{"// Directing CI/CD pipelines for cross-continental delivery."}</p>
@@ -101,16 +101,16 @@ export default function GlobalImpactSection() {
         </motion.div>
         
         {/* Globe Container */}
-        <div className="relative w-full h-[22rem] sm:h-[30rem] md:h-[50rem] z-10 pointer-events-none flex items-center justify-center">
-          <div className="w-full h-full scale-[0.8] sm:scale-100 md:scale-110 flex items-center justify-center translate-y-4 md:translate-y-0">
+        <div className="relative z-10 pointer-events-none flex w-full items-center justify-center">
+          <div className="relative flex size-[min(82vw,18rem)] items-center justify-center sm:size-[min(76vw,28rem)] md:size-[min(64vw,42rem)] lg:size-[min(58vw,48rem)]">
             <World data={sampleArcs} globeConfig={globeConfig} />
           </div>
           {/* Subtle overlay to fade the globe top */}
-          <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-gruv-bg via-gruv-bg/10 to-transparent z-20 h-20 md:h-40" />
+          <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-gruv-bg via-gruv-bg/10 to-transparent z-20 h-12 sm:h-20 md:h-32" />
         </div>
 
         {/* Bottom fade out */}
-        <div className="absolute w-full bottom-0 inset-x-0 h-16 md:h-40 bg-gradient-to-b pointer-events-none select-none from-transparent to-gruv-bg z-40" />
+        <div className="absolute w-full bottom-0 inset-x-0 h-20 md:h-40 bg-gradient-to-b pointer-events-none select-none from-transparent to-gruv-bg z-40" />
       </div>
     </section>
   );
